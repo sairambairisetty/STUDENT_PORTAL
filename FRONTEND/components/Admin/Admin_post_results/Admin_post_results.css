@@ -1,0 +1,164 @@
+.admin-results-portal-container {
+  padding: 35px;
+  background-color: #121212;
+  min-height: 100vh;
+  color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Portal Action Header Layout Sheets */
+.results-portal-action-header {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  border-bottom: 1px solid #2d2d2d;
+  padding-bottom: 20px;
+  margin-bottom: 35px;
+}
+
+.admin-dashboard-back-btn {
+  background-color: #1a1a1a;
+  color: #3498db;
+  border: 1px solid #3498db;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.admin-dashboard-back-btn:hover {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.admin-portal-header-meta h1 {
+  margin: 0 0 6px 0;
+  font-size: 1.8rem;
+  color: #3498db;
+}
+
+.admin-portal-header-meta p {
+  margin: 0;
+  color: #888;
+  font-size: 0.95rem;
+}
+
+/* REQUIREMENT: Clean Grid Table Wrapper Architecture */
+.admin-results-table-wrapper {
+  background: #1a1a1a;
+  border: 1px solid #262626;
+  border-radius: 12px;
+  overflow-x: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.admin-evaluation-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.admin-evaluation-table th {
+  background-color: #222222;
+  color: #3498db;
+  padding: 16px 20px;
+  font-weight: 600;
+  border-bottom: 2px solid #2d2d2d;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+.admin-evaluation-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid #262626;
+  color: #cccccc;
+  vertical-align: middle;
+}
+
+.admin-evaluation-table tbody tr:hover {
+  background-color: #202020;
+}
+
+/* Row Inner badging components stylings */
+.admin-exam-id-tag {
+  background: rgba(52, 152, 219, 0.15);
+  color: #3498db;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.admin-subject-title {
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.admin-branch-badge {
+  background: #2a2415;
+  color: #e67e22;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.admin-fac-id-badge {
+  background: #282828;
+  color: #aaa;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.admin-key-status-ready {
+  color: #2ecc71;
+  font-weight: bold;
+  background-color: rgba(46, 204, 113, 0.1);
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(46, 204, 113, 0.2);
+  font-size: 0.85rem;
+}
+
+/* REQUIREMENT: Pro-Level Hit Post Action Trigger Button */
+.admin-hit-post-btn {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.2);
+}
+
+.admin-hit-post-btn:hover {
+  background: linear-gradient(135deg, #27ae60, #219653);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(46, 204, 113, 0.3);
+}
+
+.admin-hit-post-btn:disabled {
+  background: #444;
+  color: #888;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Structural Status blocks slots definitions sheets */
+.results-empty-container, .results-loader-box {
+  text-align: center;
+  padding: 70px;
+  background: #1a1a1a;
+  border-radius: 12px;
+  border: 1px dashed #333;
+  color: #888;
+  font-size: 1.1rem;
+}

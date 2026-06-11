@@ -1,0 +1,168 @@
+.join-exam-container {
+  min-height: 100vh;
+  background-color: #121212;
+  color: #ffffff;
+  padding: 30px;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Header & Live Timer Box */
+.join-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #2c2c2c;
+  padding-bottom: 20px;
+  margin-bottom: 40px;
+}
+
+.back-btn {
+  background: none;
+  border: 1px solid #3d3d3d;
+  color: #aaaaaa;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.back-btn:hover {
+  background: #222;
+  color: #fff;
+  border-color: #555;
+}
+
+.live-timer-box {
+  background: #1a1a1a;
+  border: 1px solid #e74c3c;
+  padding: 12px 24px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 0 15px rgba(231, 76, 60, 0.2);
+}
+
+.timer-label {
+  color: #e74c3c;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+.timer-clock {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* Motivation Card layout */
+.exam-waiting-room {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.motivation-card {
+  background: linear-gradient(135deg, #1e1e1e 0%, #111111 100%);
+  border: 1px solid #2c2c2c;
+  width: 100%;
+  max-width: 750px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.motivation-overlay {
+  padding: 40px;
+  text-align: center;
+}
+
+.academic-badge {
+  display: inline-block;
+  background: rgba(52, 152, 219, 0.15);
+  color: #3498db;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+  border: 1px solid rgba(52, 152, 219, 0.3);
+}
+
+.motivation-overlay h1 {
+  font-size: 2.2rem;
+  margin: 0 0 10px 0;
+  color: #2ecc71;
+}
+
+.motivation-overlay p {
+  color: #aaaaaa;
+  font-size: 1.05rem;
+  margin-bottom: 30px;
+}
+
+/* Meta Grid Details */
+.exam-meta-details {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 35px;
+  border: 1px solid #222;
+}
+
+.meta-item {
+  font-size: 1rem;
+  color: #dddddd;
+}
+
+/* Action Portal Button Styling */
+.start-portal-btn {
+  width: 100%;
+  padding: 16px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.start-portal-btn.locked {
+  background: #2c3e50;
+  color: #7f8c8d;
+  cursor: not-allowed;
+  border: 1px solid #34495e;
+}
+
+.start-portal-btn.ready {
+  background: #2ecc71;
+  color: white;
+  box-shadow: 0 5px 20px rgba(46, 204, 113, 0.4);
+}
+
+.start-portal-btn.ready:hover {
+  background: #27ae60;
+  transform: translateY(-2px);
+}
+
+.join-status {
+  text-align: center;
+  padding: 80px;
+  color: #888;
+  font-size: 1.2rem;
+  font-style: italic;
+}
+
+.join-status.no-exams {
+  border: 2px dashed #2c2c2c;
+  border-radius: 12px;
+  background: #161616;
+}

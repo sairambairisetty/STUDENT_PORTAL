@@ -1,0 +1,161 @@
+/* Admin Global Layout Setup */
+.admin-wrapper {
+  min-height: 100vh;
+  background-color: #0f0f0f;
+  color: #ffffff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header Navbar Styling */
+.admin-navbar {
+  background-color: #141414;
+  padding: 15px 50px;
+  border-bottom: 1px solid #222222;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-navbar .admin-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.admin-navbar .admin-logo span {
+  color: #3498db;
+}
+
+.admin-profile-badge {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #3498db;
+}
+
+/* Core Content Panel View bounds */
+.admin-content-pane {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 50px 20px;
+}
+
+.admin-welcome-banner h1 {
+  font-size: 2.2rem;
+  margin: 0 0 10px 0;
+  font-weight: 600;
+  background: linear-gradient(90deg, #fff, #888);
+  /* -webkit-background-clip: text; */
+  -webkit-text-fill-color: transparent;
+}
+
+.admin-welcome-banner p {
+  color: #777;
+  margin: 0 0 45px 0;
+  font-size: 1.05rem;
+}
+
+/* Grid layout mechanics supporting dynamic multi-items elegantly */
+.admin-modules-layout-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 30px;
+  width: 100%;
+}
+
+/* Modular Card base configurations sheets */
+.admin-module-card {
+  background: #161616;
+  border: 1px solid #242424;
+  border-radius: 14px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition:
+    transform 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.admin-module-card:hover {
+  transform: translateY(-5px);
+  border-color: #3498db;
+  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.1);
+}
+
+.admin-card-icon-slot {
+  font-size: 2.5rem;
+  background: #1e1e1e;
+  width: 65px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 1px solid #2d2d2d;
+}
+
+.admin-card-details-slot {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.admin-card-details-slot h2 {
+  margin: 0 0 12px 0;
+  font-size: 1.35rem;
+  color: #ffffff;
+}
+
+.admin-card-details-slot p {
+  color: #999;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0 0 25px 0;
+  flex: 1; /* Automatically aligns button nodes evenly */
+}
+
+/* Base button trigger setups styles sheets */
+.admin-action-trigger-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid #3498db;
+  color: #3498db;
+  transition: all 0.2s;
+}
+
+.admin-action-trigger-btn:hover {
+  background: #3498db;
+  color: #ffffff;
+}
+
+/* FIXED: Result Publish Button Highlight Card glow specs */
+.result-glow-accent:hover {
+  border-color: #2ecc71;
+  box-shadow: 0 6px 20px rgba(46, 204, 113, 0.15);
+}
+
+.result-glow-accent .admin-card-icon-slot {
+  border-color: rgba(46, 204, 113, 0.2);
+  background: rgba(46, 204, 113, 0.02);
+}
+
+.result-glow-accent .admin-action-trigger-btn {
+  border-color: #2ecc71;
+  color: #2ecc71;
+  background: rgba(46, 204, 113, 0.02);
+}
+
+.result-glow-accent .admin-action-trigger-btn:hover {
+  background: #2ecc71;
+  color: #ffffff;
+}

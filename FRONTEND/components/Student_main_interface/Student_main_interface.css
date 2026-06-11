@@ -1,0 +1,163 @@
+/* MAIN */
+.main-interface-container {
+    display: flex;
+    min-height: 100vh;
+    background: #f8fafc; /* light clean background */
+    color: #0f172a;
+    font-family: 'Inter', sans-serif;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 240px;
+    background: #0f172a;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 25px 15px;
+}
+
+/* BRAND */
+.sidebar-brand h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.sidebar-brand span {
+    color: #38bdf8;
+}
+
+/* MENU */
+.sidebar-menu {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar-menu button {
+    background: none;
+    border: none;
+    color: #cbd5e1;
+    padding: 12px 15px;
+    text-align: left;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+/* ACTIVE */
+.sidebar-menu button.active {
+    background: #1e293b;
+    color: #38bdf8;
+}
+
+/* HOVER */
+.sidebar-menu button:hover {
+    background: #1e293b;
+}
+
+/* LOGOUT */
+.logout-nav {
+    margin-top: auto;
+    color: #f87171 !important;
+}
+
+/* MAIN DASHBOARD */
+.dashboard-view {
+    flex: 1;
+    padding: 40px;
+}
+
+/* HEADER */
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+/* TEXT */
+.welcome-section h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.welcome-section p {
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+/* BADGE */
+.status-badge {
+    background: #e0f2fe;
+    color: #0284c7;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* GRID */
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+/* CARD */
+.feature-card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+/* HOVER */
+.feature-card:hover {
+    border-color: #38bdf8;
+}
+
+/* INNER */
+.card-inner {
+    padding: 25px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* ICON */
+.card-icon {
+    font-size: 2rem;
+}
+
+/* TEXT */
+.card-text h3 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.card-text p {
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+/* FOOTER */
+.card-footer {
+    padding: 12px 25px;
+    border-top: 1px solid #e2e8f0;
+    font-size: 0.85rem;
+    color: #0284c7;
+}
+
+/* RESPONSIVE */
+@media (max-width: 800px) {
+    .action-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        display: none;
+    }
+}

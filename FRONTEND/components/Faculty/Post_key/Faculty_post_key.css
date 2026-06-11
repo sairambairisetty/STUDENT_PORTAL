@@ -1,0 +1,214 @@
+.post-key-portal-container {
+  padding: 30px;
+  background-color: #121212;
+  min-height: calc(100vh - 60px);
+  color: #ffffff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Action Header area layout */
+.portal-action-header {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  border-bottom: 1px solid #2d2d2d;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.back-dash-btn {
+  background-color: #222;
+  color: #ccc;
+  border: 1px solid #333;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.back-dash-btn:hover {
+  background-color: #333;
+  color: #fff;
+  border-color: #555;
+}
+
+.header-meta h1 {
+  margin: 0 0 5px 0;
+  font-size: 1.8rem;
+  color: #2ecc71;
+}
+
+.header-meta p {
+  margin: 0;
+  color: #888;
+  font-size: 0.95rem;
+}
+
+/* Table Architecture setup */
+.table-responsive-wrapper {
+  background: #1a1a1a;
+  border: 1px solid #262626;
+  border-radius: 12px;
+  overflow-x: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.faculty-key-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.faculty-key-table th {
+  background-color: #222222;
+  color: #3498db;
+  padding: 16px 20px;
+  font-weight: 600;
+  border-bottom: 2px solid #2d2d2d;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+.faculty-key-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid #262626;
+  color: #dddddd;
+  vertical-align: middle;
+}
+
+.faculty-key-table tbody tr:hover {
+  background-color: #202020;
+}
+
+/* Column elements badges & helpers styling */
+.exam-id-badge {
+  background: #2c3e50;
+  color: #3498db;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.subject-text {
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.branch-tag {
+  background: #2a2415;
+  color: #e67e22;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+/* REQUIREMENT: True and False Custom Status Badges */
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+.true-badge {
+  background-color: rgba(46, 204, 113, 0.15);
+  color: #2ecc71;
+  border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.false-badge {
+  background-color: rgba(231, 76, 60, 0.15);
+  color: #e74c3c;
+  border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+/* Result processing string badges */
+.result-state-tag {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.result-state-tag.NOT_POSTED {
+  color: #aaa;
+}
+.result-state-tag.KEY_SUBMITTED {
+  color: #3498db;
+}
+.result-state-tag.PUBLISHED {
+  color: #2ecc71;
+}
+
+/* Custom Excel file upload slots button logic */
+.hidden-file-input {
+  display: none;
+}
+
+.custom-file-label {
+  background: #252525;
+  border: 1px dashed #444;
+  color: #bbb;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+  display: inline-block;
+  text-align: center;
+  min-width: 140px;
+}
+
+.custom-file-label:hover {
+  border-color: #2ecc71;
+  color: #2ecc71;
+  background: rgba(46, 204, 113, 0.02);
+}
+
+.lock-label-text {
+  color: #666;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+/* REQUIREMENT: Rocket Submit Post Button Layout */
+.post-submit-icon-btn {
+  background: #2ecc71;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition:
+    background 0.2s,
+    transform 0.1s;
+}
+
+.post-submit-icon-btn:hover {
+  background: #27ae60;
+  transform: scale(1.02);
+}
+
+.success-check-mark {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.no-exams-box,
+.portal-loader {
+  text-align: center;
+  padding: 60px;
+  background: #1a1a1a;
+  border-radius: 12px;
+  border: 1px dashed #333;
+  color: #888;
+  font-size: 1.1rem;
+}

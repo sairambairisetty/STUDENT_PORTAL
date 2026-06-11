@@ -1,0 +1,167 @@
+/* FONT (optional but recommended in index.html) */
+/* <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet"> */
+
+.main-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #020617, #0f172a, #020617);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Soft background glow (NO errors) */
+.main-container::before,
+.main-container::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: 0;
+}
+
+.main-container::before {
+    width: 400px;
+    height: 400px;
+    background: #38bdf8;
+    top: -100px;
+    left: -100px;
+    opacity: 0.15;
+}
+
+.main-container::after {
+    width: 400px;
+    height: 400px;
+    background: #818cf8;
+    bottom: -100px;
+    right: -100px;
+    opacity: 0.15;
+}
+
+/* HERO */
+.hero-section {
+    text-align: center;
+    margin-bottom: 3rem;
+    z-index: 1;
+    animation: fadeUp 0.8s ease;
+}
+
+.portal-title {
+    font-size: 3.5rem;
+    color: white;
+    font-weight: 800;
+}
+
+.portal-title span {
+    /* 1. Fallback color for very old browsers */
+    color: #38bdf8; 
+
+    /* 2. The Gradient */
+    background: linear-gradient(90deg, #38bdf8, #818cf8);
+
+    /* 3. Clipping logic (Webkit + Standard) */
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    /* 4. Transparent fill to show the background */
+    -webkit-text-fill-color: transparent;
+    color: transparent; 
+}
+
+.portal-subtitle {
+    color: #94a3b8;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+}
+
+/* CARD GRID */
+.card-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1100px;
+    z-index: 1;
+}
+
+/* CARD */
+.glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 35px;
+    text-align: center;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    
+    /* SIMPLE smooth animation (no crazy hover) */
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Clean hover (very subtle) */
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* ICON */
+.icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+/* TEXT */
+.glass-card h2 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+.glass-card p {
+    color: #cbd5e1;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+/* BUTTON */
+.enter-btn {
+    padding: 10px 22px;
+    border: none;
+    border-radius: 10px;
+    background: #38bdf8;
+    color: #020617;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.enter-btn:hover {
+    transform: scale(1.05);
+}
+
+/* THEME COLORS */
+.student-theme .enter-btn { background: #3b82f6; }
+.faculty-theme .enter-btn { background: #10b981; }
+.admin-theme .enter-btn   { background: #ec4899; }
+
+/* ENTRY ANIMATION */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .portal-title {
+        font-size: 2.5rem;
+    }
+}

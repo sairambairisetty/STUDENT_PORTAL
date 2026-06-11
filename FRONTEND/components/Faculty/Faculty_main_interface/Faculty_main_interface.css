@@ -1,0 +1,153 @@
+/* General Layout Structure */
+.faculty-wrapper {
+  min-height: 100vh;
+  background-color: #121212;
+  color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navbar */
+.faculty-nav {
+  background-color: #161616;
+  padding: 15px 50px;
+  border-bottom: 1px solid #222;
+}
+
+.faculty-nav .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.faculty-nav .logo span {
+  color: #3498db;
+}
+
+/* Main Content Wrapper */
+.faculty-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px 20px;
+}
+
+.content-header h1 {
+  font-size: 2.2rem;
+  margin: 0 0 10px 0;
+  font-weight: 600;
+}
+
+.content-header p {
+  color: #888;
+  margin: 0 0 40px 0;
+  font-size: 1.05rem;
+}
+
+/* FIXED: Grid Mechanics optimized for 3 clean items layout */
+.interface-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  width: 100%;
+}
+
+/* Dashboard Cards base styling */
+.interface-card {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 14px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.interface-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-icon {
+  font-size: 2.8rem;
+  background: #222;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.card-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-details h2 {
+  margin: 0 0 12px 0;
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.card-details p {
+  color: #aaa;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0 0 30px 0;
+  flex: 1; /* Aligns all buttons uniformly at bottom slot */
+}
+
+/* Base Button */
+.action-button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.2s;
+}
+
+/* Blue Accent Card (Students Info) */
+.blue-accent:hover {
+  border-color: #3498db;
+  box-shadow: 0 5px 15px rgba(52, 152, 219, 0.1);
+}
+.blue-accent .action-button {
+  border: 1px solid #3498db;
+  color: #3498db;
+}
+.blue-accent .action-button:hover {
+  background: #3498db;
+  color: #fff;
+}
+
+/* Orange Accent Card (Conduct Exam) */
+.orange-accent:hover {
+  border-color: #e67e22;
+  box-shadow: 0 5px 15px rgba(230, 126, 34, 0.1);
+}
+.orange-accent .action-button {
+  border: 1px solid #e67e22;
+  color: #e67e22;
+}
+.orange-accent .action-button:hover {
+  background: #e67e22;
+  color: #fff;
+}
+
+/* FIXED: Green Accent Card (Post Answer Key) - NEW */
+.green-accent:hover {
+  border-color: #2ecc71;
+  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.1);
+}
+.green-accent .action-button {
+  border: 1px solid #2ecc71;
+  color: #2ecc71;
+  background: rgba(46, 204, 113, 0.02);
+}
+.green-accent .action-button:hover {
+  background: #2ecc71;
+  color: #fff;
+}
