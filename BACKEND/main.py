@@ -23,16 +23,16 @@ app.add_middleware(
 # Database Configurations
 DB_CONFIG = {
     "dbname": "STUDENTS",
-    "user": "postgres",
-    "password": "Sairam1205@", 
+    "user": "your database",
+    "password": "give your password", 
     "host": "localhost",
     "port": "5432"
 }
 
 ADMIN_DB_CONFIG = {
     "dbname": "ADMIN", 
-    "user": "postgres",
-    "password": "Sairam1205@",
+    "user": "your database",
+    "password": "give your password",
     "host": "localhost",
     "port": "5432"
 }
