@@ -1,168 +1,213 @@
+/* ============================================================
+   ACADEMIC GOLD / NAVY THEME — Join Exam / Waiting Room
+   Matches Basic_interface.css, login pages, dashboard, performance.
+   Fonts: Cormorant Garamond (display) + Source Serif 4 (body)
+   Falls back to Georgia/serif if fonts aren't loaded.
+   ============================================================ */
+
+* { box-sizing: border-box; }
+
 .join-exam-container {
   min-height: 100vh;
-  background-color: #121212;
-  color: #ffffff;
-  padding: 30px;
-  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f6f1e6;
+  background-image:
+    radial-gradient(1000px 600px at 100% -10%, rgba(184, 146, 63, 0.10), transparent 60%);
+  color: #1c1a17;
+  padding: 48px 56px;
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
 }
 
-/* Header & Live Timer Box */
+/* ============================== HEADER & TIMER ============================== */
+
 .join-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #2c2c2c;
-  padding-bottom: 20px;
-  margin-bottom: 40px;
+  border-bottom: 1px solid #e3d3ab;
+  padding-bottom: 24px;
+  margin-bottom: 44px;
+  flex-wrap: wrap;
+  gap: 18px;
 }
 
 .back-btn {
-  background: none;
-  border: 1px solid #3d3d3d;
-  color: #aaaaaa;
-  padding: 10px 20px;
-  border-radius: 6px;
+  background: transparent;
+  border: 1px solid #101c33;
+  color: #101c33;
+  padding: 10px 22px;
+  border-radius: 3px;
   cursor: pointer;
-  transition: all 0.2s;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
 }
-
 .back-btn:hover {
-  background: #222;
-  color: #fff;
-  border-color: #555;
+  background: #101c33;
+  color: #fdfbf5;
+  transform: translateY(-1px);
 }
 
 .live-timer-box {
-  background: #1a1a1a;
-  border: 1px solid #e74c3c;
-  padding: 12px 24px;
-  border-radius: 8px;
+  background: #fffdf8;
+  border: 1px solid #8c3b3b;
+  padding: 12px 26px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
-  gap: 15px;
-  box-shadow: 0 0 15px rgba(231, 76, 60, 0.2);
+  gap: 16px;
+  box-shadow: 0 8px 20px -12px rgba(140, 59, 59, 0.35);
 }
 
 .timer-label {
-  color: #e74c3c;
-  font-weight: bold;
+  color: #8c3b3b;
+  font-weight: 600;
   text-transform: uppercase;
-  font-size: 0.85rem;
-  letter-spacing: 0.5px;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
 }
 
 .timer-clock {
-  font-family: "Courier New", Courier, monospace;
-  font-size: 1.6rem;
-  font-weight: bold;
-  color: #ffffff;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  font-style: italic;
+  color: #101c33;
 }
 
-/* Motivation Card layout */
+/* ============================== WAITING ROOM CARD ============================== */
+
 .exam-waiting-room {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 24px;
 }
 
 .motivation-card {
-  background: linear-gradient(135deg, #1e1e1e 0%, #111111 100%);
-  border: 1px solid #2c2c2c;
+  background: linear-gradient(180deg, #fffdf8, #f8f0dc);
+  border: 1px solid #e3d3ab;
   width: 100%;
-  max-width: 750px;
-  border-radius: 12px;
+  max-width: 760px;
+  border-radius: 8px;
   overflow: hidden;
   position: relative;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 30px 60px -30px rgba(16, 28, 51, 0.3);
 }
 
 .motivation-overlay {
-  padding: 40px;
+  padding: 48px 44px;
   text-align: center;
 }
 
 .academic-badge {
   display: inline-block;
-  background: rgba(52, 152, 219, 0.15);
-  color: #3498db;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-weight: bold;
-  font-size: 0.85rem;
-  margin-bottom: 20px;
-  border: 1px solid rgba(52, 152, 219, 0.3);
+  background: transparent;
+  color: #9c7a34;
+  padding: 7px 18px;
+  border-radius: 3px;
+  font-weight: 600;
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+  border: 1px solid #b8923f;
 }
 
 .motivation-overlay h1 {
-  font-size: 2.2rem;
-  margin: 0 0 10px 0;
-  color: #2ecc71;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2.3rem;
+  font-weight: 600;
+  font-style: italic;
+  margin: 0 0 12px;
+  color: #101c33;
 }
 
 .motivation-overlay p {
-  color: #aaaaaa;
-  font-size: 1.05rem;
-  margin-bottom: 30px;
+  color: #6b6656;
+  font-size: 1rem;
+  margin-bottom: 32px;
 }
 
-/* Meta Grid Details */
+/* ============================== META DETAILS ============================== */
+
 .exam-meta-details {
   display: flex;
   justify-content: center;
-  gap: 25px;
-  background: rgba(255, 255, 255, 0.03);
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 35px;
-  border: 1px solid #222;
+  flex-wrap: wrap;
+  gap: 28px;
+  background: #fbf5e6;
+  padding: 22px;
+  border-radius: 5px;
+  margin-bottom: 36px;
+  border: 1px solid #e3d3ab;
 }
 
 .meta-item {
-  font-size: 1rem;
-  color: #dddddd;
+  font-size: 0.98rem;
+  color: #1c1a17;
+}
+.meta-item strong {
+  color: #101c33;
+  font-weight: 600;
 }
 
-/* Action Portal Button Styling */
+/* ============================== PORTAL BUTTON ============================== */
+
 .start-portal-btn {
   width: 100%;
-  padding: 16px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
+  padding: 17px;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .start-portal-btn.locked {
-  background: #2c3e50;
-  color: #7f8c8d;
+  background: #eae2cc;
+  color: #a39c85;
   cursor: not-allowed;
-  border: 1px solid #34495e;
+  border: 1px solid #d9cba3;
 }
 
 .start-portal-btn.ready {
-  background: #2ecc71;
-  color: white;
-  box-shadow: 0 5px 20px rgba(46, 204, 113, 0.4);
+  background: #b8923f;
+  color: #fffdf8;
+  border: 1px solid #b8923f;
+  box-shadow: 0 10px 26px -12px rgba(184, 146, 63, 0.55);
+}
+.start-portal-btn.ready:hover {
+  background: #a17f34;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px -12px rgba(184, 146, 63, 0.65);
 }
 
-.start-portal-btn.ready:hover {
-  background: #27ae60;
-  transform: translateY(-2px);
-}
+/* ============================== STATUS MESSAGES ============================== */
 
 .join-status {
   text-align: center;
-  padding: 80px;
-  color: #888;
-  font-size: 1.2rem;
+  padding: 90px 30px;
+  color: #6b6656;
+  font-size: 1.1rem;
   font-style: italic;
 }
 
 .join-status.no-exams {
-  border: 2px dashed #2c2c2c;
-  border-radius: 12px;
-  background: #161616;
+  border: 1px dashed #d9cba3;
+  border-radius: 8px;
+  background: #fbf5e6;
+}
+
+/* ============================== RESPONSIVE ============================== */
+
+@media (max-width: 700px) {
+  .join-exam-container { padding: 28px 22px; }
+  .join-header { flex-direction: column; align-items: flex-start; }
+  .live-timer-box { width: 100%; justify-content: space-between; }
+  .motivation-overlay { padding: 32px 24px; }
+  .exam-meta-details { flex-direction: column; gap: 12px; }
 }

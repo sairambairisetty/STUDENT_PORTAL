@@ -29,7 +29,7 @@ const Admin_post_results = () => {
 
   // Trigger Backend OMR Auto Evaluation Algorithm
   const handleEvaluateAndPublish = async (examId) => {
-    const confirmTrigger = window.confirm(`మీరు నిజంగానే Exam #${examId} రిజల్ట్స్‌ని ఎవాల్యుయేట్ చేసి పబ్లిష్ చేయాలనుకుంటున్నారా?`);
+    const confirmTrigger = window.confirm(`Are you sure you want to evaluate and publish results for Exam #${examId}?`);
     if (!confirmTrigger) return;
 
     try {
@@ -37,12 +37,12 @@ const Admin_post_results = () => {
       const response = await axios.post(`http://localhost:8000/admin/post-results/${examId}`);
       
       if (response.data.status === 'success') {
-        alert("🎉 అద్భుతం! విద్యార్థుల OMR రెస్పాన్స్ షీట్లు అన్నీ అఫీషియల్ ఎక్సెల్ కీ తో కంపేర్ చేయబడి, మార్కులు పబ్లిష్ అయ్యాయి!");
+        alert("Success! All student OMR response sheets have been compared against the official Excel key, and the marks have been published!");
         fetchPendingResults(); // Reload table data
       }
     } catch (error) {
       console.error("Evaluation crash error:", error);
-      alert("రిజల్ట్స్ ఎవాల్యుయేషన్ రన్ చేయడం విఫలమైంది!");
+      alert("Something went wrong while publishing the results.");
     } finally {
       setProcessingId(null);
     }
@@ -56,14 +56,15 @@ const Admin_post_results = () => {
           ← Back to Dashboard
         </button>
         <div className="admin-portal-header-meta">
+          <p className="header-eyebrow">Admin Control Centre</p>
           <h1>Automated OMR Evaluation Control Centre</h1>
-          <p>ఫ్యాకల్టీలు సబ్మిట్ చేసిన అఫీషియల్ ఎక్సెల్ ఆన్సర్ కీస్ ఇక్కడ ఉన్నాయి. సింగిల్ క్లిక్‌తో మార్కులను ప్రాసెస్ చేయండి.</p>
+          <p className="header-sub">Review submitted answer keys and publish results to students.</p>
         </div>
       </header>
 
       {/* Dynamic Content Loader */}
       {loading ? (
-        <div className="results-loader-box">డేటాబేస్ నుండి పెండింగ్ రిజల్ట్స్ రికార్డ్స్ లోడ్ అవుతున్నాయి...</div>
+        <div className="results-loader-box">Loading pending results...</div>
       ) : pendingResults.length > 0 ? (
         /* REQUIREMENT: Details and Post Button organized inside a Clean Table Format */
         <div className="admin-results-table-wrapper">
@@ -77,7 +78,7 @@ const Admin_post_results = () => {
                 <th>Faculty ID</th>
                 <th>Exam Date</th>
                 <th>Key Status</th>
-                <th>Action Node</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -99,9 +100,9 @@ const Admin_post_results = () => {
                       className="admin-hit-post-btn"
                       onClick={() => handleEvaluateAndPublish(item.exam_id)}
                       disabled={processingId === item.exam_id}
-                      title="Hit Post to Calculate Marks"
+                      title="Evaluate and publish marks"
                     >
-                      {processingId === item.exam_id ? "⏳ Evaluating..." : "🚀 Hit Post to Publish"}
+                      {processingId === item.exam_id ? "Evaluating..." : "Evaluate & Publish"}
                     </button>
                   </td>
                 </tr>
@@ -111,7 +112,7 @@ const Admin_post_results = () => {
         </div>
       ) : (
         <div className="results-empty-container">
-          🌴 సూపర్ సాయిరామ్! ఫ్యాకల్టీల నుండి ప్రస్తుతం ఎలాంటి పెండింగ్ రిజల్ట్స్ అప్‌లోడ్స్ లేవు. అంతా అప్‌-టు-డేట్ లో ఉంది.
+          No pending results to evaluate right now.
         </div>
       )}
     </div>

@@ -1,45 +1,305 @@
-/* Styling for the No Data state */
-.no-data-found {
-    padding: 80px 40px;
-    text-align: center;
-    color: #94a3b8;
+/* ============================================================
+   ACADEMIC GOLD / NAVY THEME — Performance & Results
+   Matches Basic_interface.css, login pages, and dashboard.
+   Fonts: Cormorant Garamond (display) + Source Serif 4 (body)
+   Falls back to Georgia/serif if fonts aren't loaded.
+   ============================================================ */
+
+* { box-sizing: border-box; }
+
+/* --- Performance Container Base --- */
+.performance-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 40px;
+  background-color: #fffdf8;
+  color: #1c1a17;
+  border-radius: 8px;
+  border: 1px solid #e3d3ab;
+  box-shadow: 0 24px 50px -30px rgba(16, 28, 51, 0.3);
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
 }
 
-.no-data-icon {
-    font-size: 4rem;
-    margin-bottom: 20px;
-    opacity: 0.5;
+.performance-container h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #101c33;
+  margin-bottom: 28px;
+  letter-spacing: 0.01em;
 }
 
-.no-data-found h3 {
-    color: white;
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+/* --- Dashboard History Table --- */
+.perf-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  margin-top: 15px;
 }
 
-.no-data-found p {
-    font-size: 0.9rem;
-    margin-bottom: 25px;
+.perf-table th {
+  background-color: transparent;
+  color: #9c7a34;
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border-bottom: 1px solid #e3d3ab;
 }
 
-.retry-btn {
-    background: transparent;
-    border: 1px solid #38bdf8;
-    color: #38bdf8;
-    padding: 10px 25px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
+.perf-table tbody tr {
+  background-color: #fbf5e6;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
 }
 
-.retry-btn:hover {
-    background: #38bdf8;
-    color: #0f172a;
+.perf-table tbody tr:hover {
+  background-color: #f4e9d2;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px -14px rgba(16, 28, 51, 0.25);
 }
 
-.status-message {
-    padding: 50px;
-    text-align: center;
-    color: #38bdf8;
-    font-weight: 600;
+.perf-table td {
+  padding: 16px;
+  font-size: 0.98rem;
+  vertical-align: middle;
+  border-top: 1px solid #e3d3ab;
+  border-bottom: 1px solid #e3d3ab;
+  color: #1c1a17;
+}
+
+.perf-table td:first-child {
+  border-left: 1px solid #e3d3ab;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  font-weight: 600;
+  color: #101c33;
+}
+
+.perf-table td:last-child {
+  border-right: 1px solid #e3d3ab;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+/* --- Status Tags --- */
+.status-tag {
+  padding: 6px 14px;
+  border-radius: 3px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.status-tag.PUBLISHED {
+  background-color: rgba(47, 107, 79, 0.08);
+  color: #2f6b4f;
+  border: 1px solid rgba(47, 107, 79, 0.35);
+}
+
+.status-tag.NOT_POSTED,
+.status-tag.KEY_SUBMITTED,
+.status-tag.APPROVED {
+  background-color: rgba(184, 146, 63, 0.10);
+  color: #9c7a34;
+  border: 1px solid rgba(184, 146, 63, 0.4);
+}
+
+/* --- Action Buttons & Labels --- */
+.view-res-btn {
+  background: #b8923f;
+  color: #fffdf8;
+  border: 1px solid #b8923f;
+  padding: 8px 18px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.view-res-btn:hover {
+  background: #a17f34;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -10px rgba(184, 146, 63, 0.55);
+}
+
+.perf-table td span {
+  color: #8a8571;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+/* --- Detailed Result Analytics Screen --- */
+.detailed-result-view {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.close-btn {
+  background-color: transparent;
+  color: #6b6656;
+  border: 1px solid #d9cba3;
+  padding: 8px 18px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-weight: 500;
+  font-size: 0.85rem;
+  margin-bottom: 22px;
+  transition: all 0.25s ease;
+}
+
+.close-btn:hover {
+  background-color: #101c33;
+  border-color: #101c33;
+  color: #fdfbf5;
+}
+
+.summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(160deg, #101c33, #16274a);
+  padding: 24px 28px;
+  border-radius: 6px;
+  border: 1px solid rgba(184, 146, 63, 0.4);
+  margin-bottom: 28px;
+}
+
+.summary-header h2 {
+  margin: 0;
+  color: #fdfbf5;
+  font-style: italic;
+}
+
+.stats {
+  display: flex;
+  gap: 12px;
+}
+
+.stats span {
+  padding: 8px 18px;
+  border-radius: 3px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+
+.stats .correct {
+  background-color: rgba(184, 146, 63, 0.16);
+  color: #d8af5f;
+  border: 1px solid rgba(184, 146, 63, 0.4);
+}
+
+.stats .wrong {
+  background-color: rgba(210, 130, 130, 0.14);
+  color: #e2a5a5;
+  border: 1px solid rgba(210, 130, 130, 0.35);
+}
+
+/* --- Side-by-Side OMR Comparison Table --- */
+.comparison-table-wrapper {
+  max-height: 500px;
+  overflow-y: auto;
+  border: 1px solid #e3d3ab;
+  border-radius: 6px;
+  background-color: #fffdf8;
+}
+
+/* Scrollbar Customization */
+.comparison-table-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+.comparison-table-wrapper::-webkit-scrollbar-track {
+  background: #f6f1e6;
+}
+.comparison-table-wrapper::-webkit-scrollbar-thumb {
+  background: #d8af5f;
+  border-radius: 4px;
+}
+.comparison-table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #b8923f;
+}
+
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.compare-table th {
+  background-color: #f4e9d2;
+  color: #9c7a34;
+  padding: 14px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  text-align: left;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid #e3d3ab;
+}
+
+.compare-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #ece0c2;
+  font-size: 0.95rem;
+  color: #1c1a17;
+}
+
+.compare-table tbody tr:hover {
+  background-color: #fbf5e6;
+}
+
+/* Tick and Cross UI Customization */
+.tick {
+  color: #2f6b4f;
+  font-weight: bold;
+  font-size: 1.15rem;
+}
+
+.cross {
+  color: #8c3b3b;
+  font-weight: bold;
+  font-size: 1.15rem;
+}
+
+/* Smooth Fade-in Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+  .performance-container {
+    padding: 20px;
+    margin: 20px 10px;
+  }
+  .summary-header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+  .perf-table th,
+  .perf-table td {
+    padding: 10px;
+    font-size: 0.88rem;
+  }
+  .view-res-btn {
+    padding: 6px 14px;
+    font-size: 0.78rem;
+  }
 }

@@ -11,7 +11,7 @@ const Faculty_post_key = () => {
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [uploadingId, setUploadingId] = useState(null);
-  const [selectedFiles, setSelectedFiles] = useState({}); // To track files for each exam row отдельно
+  const [selectedFiles, setSelectedFiles] = useState({}); // Tracks the chosen file per exam row
 
   // Fetch Exams Posted by Faculty
   const fetchExamsList = async () => {
@@ -24,7 +24,7 @@ const Faculty_post_key = () => {
       }
     } catch (error) {
       console.error("Error fetching posted exams:", error);
-      alert("ఎగ్జామ్స్ లిస్ట్ లోడ్ చేయడంలో లోపం జరిగింది!");
+      alert("Something went wrong while loading the exams list.");
     } finally {
       setLoading(false);
     }
@@ -42,7 +42,7 @@ const Faculty_post_key = () => {
         [examId]: file,
       });
     } else {
-      alert("దయచేసి కేవలం Excel (.xlsx, .xls) ఫైల్ మాత్రమే ఎంచుకోండి!");
+      alert("Please select an Excel (.xlsx, .xls) file only.");
     }
   };
 
@@ -50,7 +50,7 @@ const Faculty_post_key = () => {
   const handlePostKey = async (examId) => {
     const file = selectedFiles[examId];
     if (!file) {
-      alert("దయచేసి ముందుగా Excel Answer Key ఫైల్‌ను అప్‌లోడ్ చేయండి!");
+      alert("Please upload the Excel answer key file first.");
       return;
     }
 
@@ -69,14 +69,12 @@ const Faculty_post_key = () => {
       );
 
       if (response.data.status === "success") {
-        alert(
-          "🎉 Answer Key Excel sheet విజయవంతంగా అడ్మిన్ పోర్టల్‌కి ఫార్వర్డ్ చేయబడింది!",
-        );
+        alert("Answer key Excel sheet was forwarded to the admin portal successfully.");
         fetchExamsList(); // Refresh table status
       }
     } catch (error) {
       console.error("Key posting error:", error);
-      alert("Answer Key పోస్ట్ చేయడం విఫలమైంది!");
+      alert("Posting the answer key failed. Please try again.");
     } finally {
       setUploadingId(null);
     }
@@ -92,18 +90,17 @@ const Faculty_post_key = () => {
           ← Back to Dashboard
         </button>
         <div className="header-meta">
+          <p className="header-eyebrow">Faculty Records Office</p>
           <h1>Faculty Answer Key Management</h1>
           <p>
-            ఎగ్జామ్ ముగిసిన పేపర్లకు ఇక్కడ అఫీషియల్ OMR Answer Key ఎక్సెల్
-            షీట్లను అప్‌లోడ్ చేసి అడ్మిన్ కి పంపండి.
+            Upload the official OMR answer key Excel sheet for finished exams
+            to forward it to the admin for evaluation.
           </p>
         </div>
       </header>
 
       {loading ? (
-        <div className="portal-loader">
-          డేటాబేస్ నుండి ఎగ్జామ్ రికార్డ్స్ లోడ్ అవుతున్నాయి...
-        </div>
+        <div className="portal-loader">Loading exam records from the database...</div>
       ) : exams.length > 0 ? (
         <div className="table-responsive-wrapper">
           <table className="faculty-key-table">
@@ -139,7 +136,6 @@ const Faculty_post_key = () => {
                   <td>{exam.exam_time}</td>
                   <td>{exam.exam_duration} Mins</td>
                   <td>
-                    {/* REQUIREMENT: True / False Display with clean custom badges */}
                     <span
                       className={`status-badge ${exam.is_finished ? "true-badge" : "false-badge"}`}
                     >
@@ -168,15 +164,15 @@ const Faculty_post_key = () => {
                           className="custom-file-label"
                         >
                           {selectedFiles[exam.exam_id]
-                            ? `📁 ${selectedFiles[exam.exam_id].name.substring(0, 15)}...`
+                            ? `${selectedFiles[exam.exam_id].name.substring(0, 15)}...`
                             : "Choose Excel Key"}
                         </label>
                       </div>
                     ) : (
                       <span className="lock-label-text">
                         {exam.result_status !== "NOT_POSTED"
-                          ? "🔒 Excel Locked"
-                          : "⏳ Exam Not Finished"}
+                          ? "Excel Locked"
+                          : "Exam Not Finished"}
                       </span>
                     )}
                   </td>
@@ -188,13 +184,11 @@ const Faculty_post_key = () => {
                         disabled={uploadingId === exam.exam_id}
                         title="Forward Key to Admin"
                       >
-                        {uploadingId === exam.exam_id ? "⏳" : "🚀 Post Key"}
+                        {uploadingId === exam.exam_id ? "Uploading..." : "Post Key"}
                       </button>
                     ) : (
                       <span className="success-check-mark">
-                        {exam.result_status !== "NOT_POSTED"
-                          ? "✅ Sent"
-                          : "❌ Disabled"}
+                        {exam.result_status !== "NOT_POSTED" ? "Sent" : "Disabled"}
                       </span>
                     )}
                   </td>
@@ -205,8 +199,7 @@ const Faculty_post_key = () => {
         </div>
       ) : (
         <div className="no-exams-box">
-          📭 నువ్వు ఇప్పటివరకు క్రియేట్ చేసిన ఎగ్జామ్స్ ఏవీ అడ్మిన్ చేత అప్రూవ్
-          చేయబడలేదు!
+          None of the exams you created have been approved by the admin yet.
         </div>
       )}
     </div>

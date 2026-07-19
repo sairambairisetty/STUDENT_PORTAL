@@ -11,7 +11,7 @@ const Conduct_exam = () => {
   const [examTime, setExamTime] = useState("");
   const [examDuration, setExamDuration] = useState("");
 
-  // FIXED: pdfFile స్టేట్ ఇక్కడ మిస్ అయింది, దాన్ని యాడ్ చేశాను
+  const [totalQuestions, setTotalQuestions] = useState("50");
   const [pdfFile, setPdfFile] = useState(null);
 
   // Dynamic Students States
@@ -41,9 +41,7 @@ const Conduct_exam = () => {
           }
         } catch (error) {
           console.error("Error fetching students:", error);
-          alert(
-            "సెలెక్ట్ చేసిన బ్రాంచ్ మరియు బ్యాచ్ విద్యార్థుల డేటా లోడ్ చేయడంలో లోపం జరిగింది!",
-          );
+          alert("Failed to load student data for the selected branch and batch.");
           setStudentsList([]);
         } finally {
           setLoadingStudents(false);
@@ -77,9 +75,9 @@ const Conduct_exam = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file && file.type === "application/pdf") {
-      setPdfFile(file); // FIXED: ఇప్పుడు pdfFile స్టేట్ లో వాల్యూ పర్ఫెక్ట్ గా స్టోర్ అవుతుంది
+      setPdfFile(file);
     } else {
-      alert("దయచేసి కేవలం PDF ఫైల్ మాత్రమే అప్‌లోడ్ చేయండి!");
+      alert("Please upload a PDF file only.");
       e.target.value = null;
       setPdfFile(null);
     }
@@ -95,14 +93,15 @@ const Conduct_exam = () => {
       !examDate ||
       !examTime ||
       !examDuration ||
+      !totalQuestions ||
       !pdfFile
     ) {
-      alert("అన్ని ఫీల్డ్స్ ని తప్పనిసరిగా ఫిల్ చేయాలి!");
+      alert("Please fill in all the fields before submitting.");
       return;
     }
 
     if (selectedStudents.length === 0) {
-      alert("కనీసం ఒక్క స్టూడెంట్ నైనా సెలెక్ట్ చేయాలి!");
+      alert("Please select at least one student.");
       return;
     }
 
@@ -113,7 +112,8 @@ const Conduct_exam = () => {
     formData.append("batch", batch);
     formData.append("exam_date", examDate);
     formData.append("exam_time", examTime);
-    formData.append("exam_duration", examDuration);
+    formData.append("exam_duration", Number(examDuration));
+    formData.append("total_questions", Number(totalQuestions));
     formData.append("file", pdfFile);
     formData.append("selected_students", JSON.stringify(selectedStudents));
 
@@ -127,34 +127,30 @@ const Conduct_exam = () => {
       );
 
       if (response.data.status === "success") {
-        alert(
-          "Exam Paper, Duration & Student List విజయవంతంగా అడ్మిన్ కి పంపబడింది!",
-        );
+        alert("Exam paper, duration, and student list were sent to the admin successfully.");
         setSubject("");
         setExamDate("");
         setExamTime("");
         setExamDuration("");
+        setTotalQuestions("50");
         setPdfFile(null);
         setSelectedStudents([]);
 
-        // Form లో ఉన్న ఫైల్ ఇన్‌పుట్ ఎలిమెంట్‌ను కూడా రీసెట్ చేయడం కోసం
         const fileInput = document.querySelector('input[type="file"]');
         if (fileInput) fileInput.value = "";
       }
     } catch (error) {
       console.error("Submission Error:", error);
-      alert("డేటాబేస్ లో ఎగ్జామ్ రికార్డ్ సేవ్ చేయడం విఫలమైంది!");
+      alert("Failed to save the exam record to the database.");
     }
   };
 
   return (
     <div className="conduct-exam-container">
       <div className="conduct-exam-header">
+        <p className="header-eyebrow">Faculty Records Office</p>
         <h1>Launch Examination Portal</h1>
-        <p>
-          సెలెక్ట్ చేసిన బ్రాంచ్ విద్యార్థుల టేబుల్ నుండి ఎగ్జామ్ రాయాల్సిన
-          వారిని ఎంచుకోండి.
-        </p>
+        <p>Select the students who will take the exam from the branch's student table.</p>
       </div>
 
       <form onSubmit={handleSubmit} className="exam-form-layout">
@@ -170,12 +166,8 @@ const Conduct_exam = () => {
               required
             >
               <option value="">Select Branch</option>
-              <option value="aids">
-                Artificial Intelligence & Data Science (AIDS)
-              </option>
-              <option value="aiml">
-                Artificial Intelligence & Machine Learning (AIML)
-              </option>
+              <option value="aids">Artificial Intelligence & Data Science (AIDS)</option>
+              <option value="aiml">Artificial Intelligence & Machine Learning (AIML)</option>
               <option value="cse">Computer Science Engineering (CSE)</option>
               <option value="ece">Electronics & Communication (ECE)</option>
               <option value="it">Information Technology (IT)</option>
@@ -244,6 +236,17 @@ const Conduct_exam = () => {
             </div>
           </div>
 
+          <div className="input-group">
+            <label>Total Questions (OMR Count)</label>
+            <input
+              type="number"
+              min="1"
+              value={totalQuestions}
+              onChange={(e) => setTotalQuestions(e.target.value)}
+              required
+            />
+          </div>
+
           <div className="input-group file-upload-box">
             <label>Upload Question Paper (PDF)</label>
             <input
@@ -264,9 +267,7 @@ const Conduct_exam = () => {
           <h3>Select Students ({selectedStudents.length} Selected)</h3>
 
           {loadingStudents ? (
-            <div className="status-msg">
-              డేటాబేస్ నుండి టేబుల్ రోస్ లోడ్ అవుతున్నాయి...
-            </div>
+            <div className="status-msg">Loading table rows from the database...</div>
           ) : studentsList.length > 0 ? (
             <div className="student-list-wrapper">
               <div className="select-all-box">
@@ -316,8 +317,7 @@ const Conduct_exam = () => {
             </div>
           ) : (
             <div className="status-msg empty">
-              లిస్ట్ లోడ్ అవ్వడానికి మొదట Branch మరియు Year/Batch రెండు ఆప్షన్స్
-              ఎంచుకోండి.
+              Select both Branch and Year/Batch above to load the student list.
             </div>
           )}
         </div>

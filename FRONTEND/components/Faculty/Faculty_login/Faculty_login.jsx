@@ -11,7 +11,6 @@ const Faculty_login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       const response = await fetch("http://127.0.0.1:8000/login/faculty", {
         method: "POST",
@@ -21,14 +20,11 @@ const Faculty_login = () => {
           password: password,
         }),
       });
-
       const data = await response.json();
-
       if (response.ok) {
         // Store faculty info for the dashboard
         localStorage.setItem("facultyName", data.name);
         localStorage.setItem("facultyDept", data.dept);
-
         alert(`Welcome, Prof. ${data.name}`);
         navigate("/faculty_main_interface");
       } else {
@@ -42,45 +38,63 @@ const Faculty_login = () => {
   };
 
   return (
-    <div className="login-page-wrapper">
-      <div className="login-card">
-        <div className="login-header">
-          <div className="icon-circle">👨‍🏫</div>
-          <h1>Faculty Login</h1>
-          <p>Access your academic portal</p>
+    <div className="login-main-container">
+      <div className="login-box-wrapper">
+
+        {/* LEFT SIDE — banner */}
+        <div className="login-side-banner">
+          <div className="banner-content">
+            <p className="banner-crest" aria-hidden="true">
+              <span className="crest-dash" />
+              <span className="crest-dot" />
+              <span className="crest-dash" />
+            </p>
+            <p className="banner-eyebrow">Faculty Records Office</p>
+            <h2>Welcome Back</h2>
+            <p className="banner-line">Sign in to manage grades, attendance, and your academic portal.</p>
+            <button className="ghost-btn" onClick={() => navigate("/")}>
+              Go Back
+            </button>
+          </div>
         </div>
 
-        <form onSubmit={handleLogin} className="login-form">
-          <div className="input-group">
-            <label>Employee ID</label>
-            <input
-              type="text"
-              placeholder="Enter ID (e.g., 246M1A1201)"
-              value={employeeId}
-              onChange={(e) => setEmployeeId(e.target.value)}
-              required
-            />
+        {/* RIGHT SIDE — form */}
+        <div className="login-form-side">
+          <div className="form-container">
+            <span className="form-numeral">II</span>
+            <h2 className="login-title">Faculty Login</h2>
+            <span className="subtitle">Access your academic portal</span>
+
+            <form onSubmit={handleLogin}>
+              <div className="input-field">
+                <label htmlFor="employeeId">Employee ID</label>
+                <input
+                  id="employeeId"
+                  type="text"
+                  placeholder="e.g., 246M1A1201"
+                  value={employeeId}
+                  onChange={(e) => setEmployeeId(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="input-field">
+                <label htmlFor="password">Password</label>
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+              <button type="submit" className="main-login-btn" disabled={loading}>
+                {loading ? "Verifying..." : "Login to Portal"}
+              </button>
+            </form>
           </div>
+        </div>
 
-          <div className="input-group">
-            <label>Password</label>
-            <input
-              type="password"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-
-          <button type="submit" className="login-btn" disabled={loading}>
-            {loading ? "Verifying..." : "Login to Portal"}
-          </button>
-        </form>
-
-        <button className="back-btn" onClick={() => navigate("/")}>
-          ← Back to Main Menu
-        </button>
       </div>
     </div>
   );

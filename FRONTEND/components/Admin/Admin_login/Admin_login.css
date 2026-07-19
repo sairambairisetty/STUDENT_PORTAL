@@ -1,57 +1,259 @@
-.login-wrapper {
+/* ============================================================
+   Uses the same fonts as Basic_interface.css — Cormorant Garamond
+   + Source Serif 4. If you already loaded the Google Fonts link
+   in index.html for the portal page, nothing extra is needed here.
+   Falls back to Georgia/serif if fonts don't load.
+   ============================================================ */
+
+* { box-sizing: border-box; }
+
+/* MAIN BACKGROUND */
+.login-main-container {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #f0f2f5;
-  font-family: Arial, sans-serif;
+  background: #f6f1e6;
+  background-image:
+    radial-gradient(1000px 600px at 10% -10%, rgba(184, 146, 63, 0.14), transparent 60%),
+    radial-gradient(900px 600px at 110% 110%, rgba(184, 146, 63, 0.10), transparent 60%);
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  overflow: hidden;
+  position: relative;
+  padding: 24px;
 }
 
-.login-box {
-  background: #ffffff;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 350px;
+/* BOX */
+.login-box-wrapper {
+  background: #fffdf8;
+  border-radius: 10px;
+  width: 900px;
+  max-width: 100%;
+  min-height: 500px;
+  display: flex;
+  overflow: hidden;
+  border: 1px solid #e3d3ab;
+  box-shadow: 0 30px 60px -25px rgba(16, 28, 51, 0.25);
+  animation: slideIn 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ENTRY ANIMATION */
+@keyframes slideIn {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* EXIT ANIMATION */
+.exit .login-box-wrapper {
+  animation: slideOut 0.45s ease forwards;
+}
+@keyframes slideOut {
+  from { transform: translateY(0) scale(1); opacity: 1; }
+  to { transform: translateY(-30px) scale(0.97); opacity: 0; }
+}
+
+/* LEFT NAVY PANEL */
+.login-side-banner {
+  flex: 1;
+  background: linear-gradient(160deg, #101c33, #16274a 60%, #1c3160);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  padding: 48px 40px;
+  position: relative;
+}
+.login-side-banner::after {
+  /* thin gold inner border, like a certificate edge */
+  content: '';
+  position: absolute;
+  inset: 16px;
+  border: 1px solid rgba(184, 146, 63, 0.35);
+  pointer-events: none;
 }
 
-.login-box h1 {
-  margin-bottom: 25px;
-  font-size: 24px;
-  color: #1c1e21;
+.banner-content { position: relative; z-index: 1; }
+
+.banner-crest {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+.crest-dash { width: 26px; height: 1px; background: #b8923f; display: inline-block; }
+.crest-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #b8923f; display: inline-block;
+  box-shadow: 0 0 0 3px rgba(184, 146, 63, 0.18);
 }
 
-.login-box input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #dddfe2;
-  border-radius: 6px;
-  font-size: 16px;
-  box-sizing: border-box;
+.banner-eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #d8af5f;
+  margin: 0 0 14px;
 }
 
-.login-box input:focus {
-  outline: none;
-  border-color: #1877f2;
-  box-shadow: 0 0 0 2px #e7f3ff;
+.banner-content h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2.4rem;
+  font-weight: 600;
+  font-style: italic;
+  color: #fdfbf5;
+  margin: 0 0 14px;
 }
 
-.login-box button {
-  width: 100%;
-  padding: 12px;
-  background-color: #1877f2;
-  border: none;
-  border-radius: 6px;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
+.banner-line {
+  color: #b9c3d6;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0 0 30px;
+  max-width: 280px;
+}
+
+/* GHOST BUTTON */
+.ghost-btn {
+  border: 1px solid #b8923f;
+  padding: 11px 34px;
+  border-radius: 3px;
+  background: transparent;
+  color: #d8af5f;
   cursor: pointer;
-  transition: background-color 0.2s;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+.ghost-btn:hover {
+  background: #b8923f;
+  color: #101c33;
+  transform: translateY(-2px);
 }
 
-.login-box button:hover {
-  background-color: #166fe5;
+/* RIGHT SIDE */
+.login-form-side {
+  flex: 1.15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 44px;
+}
+
+/* FORM */
+.form-container {
+  width: 100%;
+  max-width: 340px;
+  text-align: center;
+  position: relative;
+}
+
+.form-numeral {
+  display: inline-block;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #9c7a34;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.login-title {
+  color: #101c33;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+
+.subtitle {
+  color: #6b6656;
+  display: block;
+  font-size: 0.86rem;
+  font-style: italic;
+  margin-bottom: 28px;
+}
+
+/* INPUT */
+.input-field {
+  margin-bottom: 18px;
+  text-align: left;
+}
+.input-field label {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #7a755f;
+  margin-bottom: 6px;
+}
+.input-field input {
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: 4px;
+  border: 1px solid #d9cba3;
+  background: #fdfbf5;
+  color: #101c33;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 0.98rem;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* PLACEHOLDER */
+.input-field input::placeholder {
+  color: #a39c85;
+  opacity: 1;
+  font-style: italic;
+}
+
+/* FOCUS */
+.input-field input:focus {
+  outline: none;
+  border-color: #b8923f;
+  box-shadow: 0 0 0 3px rgba(184, 146, 63, 0.15);
+}
+
+/* SUBMIT BUTTON */
+.main-login-btn {
+  width: 100%;
+  background: #b8923f;
+  border: 1px solid #b8923f;
+  color: #fffdf8;
+  padding: 14px 0;
+  border-radius: 4px;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+.main-login-btn:hover {
+  background: #a17f34;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 22px -10px rgba(184, 146, 63, 0.55);
+}
+
+/* ERROR */
+.error-msg {
+  color: #8c3b3b;
+  background: rgba(140, 59, 59, 0.08);
+  border: 1px solid rgba(140, 59, 59, 0.25);
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-bottom: 16px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .login-box-wrapper { flex-direction: column; }
+  .login-side-banner { display: none; }
+  .login-form-side { padding: 40px 28px; }
 }

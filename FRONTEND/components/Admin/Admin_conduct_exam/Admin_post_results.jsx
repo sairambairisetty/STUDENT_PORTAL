@@ -20,10 +20,10 @@ const Admin_post_results = () => {
         try {
             const res = await axios.post(`http://localhost:8000/admin/post-results/${examId}`);
             if (res.data.status === 'success') {
-                alert("🎉 ఎవాల్యుయేషన్ పూర్తయింది! రిజల్ట్స్ పబ్లిష్ చేయబడ్డాయి.");
+                alert("🎉 resulsts are published");
                 fetchPending();
             }
-        } catch (err) { alert("రిజల్ట్స్ పోస్ట్ చేయడంలో లోపం జరిగింది!"); }
+        } catch (err) { alert("we have error to publish the resuts"); }
     };
 
     return (
@@ -41,7 +41,7 @@ const Admin_post_results = () => {
                             🚀 Evaluate & Publish Results
                         </button>
                     </div>
-                )) : <p className="no-data">ప్రస్తుతానికి ఎలాంటి పెండింగ్ రిజల్ట్స్ లేవు.</p>}
+                )) : <p className="no-data">we have no pending exams </p>}
             </div>
         </div>
     );

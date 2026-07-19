@@ -1,20 +1,66 @@
+/* ============================================================
+   ACADEMIC GOLD / NAVY THEME — Student Registration
+   Matches Faculty_main_interface.css, Admin_post_results.css,
+   Basic_interface.css, login pages, dashboard, performance,
+   and Join_exam.css.
+   Fonts: Cormorant Garamond (display) + Source Serif 4 (body)
+   Falls back to Georgia/serif if fonts aren't loaded.
+   ============================================================ */
+
+* { box-sizing: border-box; }
+
+/* ============================== PAGE WRAPPER ============================== */
+
 .registration-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #f0f2f5;
-  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  padding: 40px 20px;
+  background-color: #f6f1e6;
+  background-image:
+    radial-gradient(1000px 600px at 100% -10%, rgba(184, 146, 63, 0.10), transparent 60%);
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  color: #1c1a17;
 }
 
+/* ============================== CARD ============================== */
+
 .registration-card {
-  background: white;
-  padding: 50px;
-  border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+  background: linear-gradient(180deg, #fffdf8, #f8f0dc);
+  border: 1px solid #e3d3ab;
+  padding: 48px;
+  border-radius: 8px;
+  box-shadow: 0 14px 26px -20px rgba(16, 28, 51, 0.2);
   width: 100%;
   max-width: 500px;
 }
+
+.registration-card h1,
+.registration-card h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #101c33;
+  margin: 0 0 8px;
+}
+
+.registration-card .header-eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #b8923f;
+  margin: 0 0 12px;
+}
+
+.registration-card .header-sub {
+  color: #6b6656;
+  font-size: 0.94rem;
+  font-style: italic;
+  margin: 0 0 32px;
+}
+
+/* ============================== INPUT FIELDS ============================== */
 
 .input-field {
   margin-bottom: 25px;
@@ -22,62 +68,93 @@
 
 .input-field label {
   display: block;
-  font-weight: 500;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-weight: 600;
   margin-bottom: 10px;
-  color: #333;
-  font-size: 1.1rem;
+  color: #101c33;
+  font-size: 0.98rem;
 }
 
-.input-field input {
+.input-field input,
+.input-field select {
   width: 100%;
-  padding: 14px;
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
-  background-color: #f4f4f6;
+  padding: 13px 14px;
+  border: 1px solid #e3d3ab;
+  border-radius: 4px;
+  background-color: #fdfbf5;
+  font-family: 'Source Serif 4', Georgia, serif;
   font-size: 1rem;
+  color: #1c1a17;
   box-sizing: border-box;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
 }
+
+.input-field input:focus,
+.input-field select:focus {
+  outline: none;
+  border-color: #b8923f;
+  background-color: #fffdf8;
+}
+
+/* ============================== FILE UPLOAD ============================== */
 
 .file-upload-section {
-  border: 2px dashed #3498db;
+  border: 2px dashed #b8923f;
   padding: 40px;
   text-align: center;
-  border-radius: 12px;
+  border-radius: 8px;
   margin-bottom: 30px;
   cursor: pointer;
-  background-color: white;
-  transition: all 0.2s ease;
+  background-color: #fffdf8;
+  transition: all 0.25s ease;
 }
 
 .file-upload-section:hover {
-  background-color: #f8fbff;
-  border-color: #2980b9;
+  background-color: #fbf5e4;
+  border-color: #9c7a34;
 }
 
 .file-label span {
-  color: #3498db;
+  color: #9c7a34;
+  font-family: 'Source Serif 4', Georgia, serif;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
 }
+
+/* ============================== SUBMIT BUTTON ============================== */
 
 .submit-btn {
   width: 100%;
-  padding: 16px;
-  background-color: #2ecc71; /* The green from your image */
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 1.1rem;
+  padding: 14px;
+  background-color: transparent;
+  color: #2f6b4f;
+  border: 1px solid #2f6b4f;
+  border-radius: 4px;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 0.9rem;
   font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.25s ease;
 }
 
-.submit-btn:hover {
-  background-color: #27ae60;
+.submit-btn:hover:not(:disabled) {
+  background-color: #2f6b4f;
+  color: #fdfbf5;
 }
 
 .submit-btn:disabled {
-  background-color: #a5d6a7;
-  cursor: not_allowed;
+  background-color: #efe9d8;
+  color: #b3ac97;
+  border-color: #d8d0b8;
+  cursor: not-allowed;
+}
+
+/* ============================== RESPONSIVE ============================== */
+
+@media (max-width: 560px) {
+  .registration-card { padding: 32px 24px; }
+  .registration-card h1,
+  .registration-card h2 { font-size: 1.6rem; }
 }

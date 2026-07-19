@@ -1,167 +1,228 @@
-/* FONT (optional but recommended in index.html) */
-/* <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet"> */
+/* ============================================================
+   FONTS — add this to your index.html <head>, above your CSS link:
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500;1,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
 
-.main-container {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #020617, #0f172a, #020617);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Inter', sans-serif;
-    padding: 20px;
-    position: relative;
-    overflow: hidden;
+   If the fonts don't load for any reason, everything below falls back
+   to Georgia/serif automatically — layout and color will not break.
+   ============================================================ */
+
+* { box-sizing: border-box; }
+
+.portal-root {
+  min-height: 100vh;
+  width: 100%;
+  background: #f6f1e6;
+  background-image:
+    radial-gradient(1200px 600px at 15% -10%, rgba(184, 146, 63, 0.12), transparent 60%),
+    radial-gradient(1000px 700px at 110% 110%, rgba(184, 146, 63, 0.08), transparent 60%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  color: #1c1a17;
+  padding: 64px 20px 40px;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Soft background glow (NO errors) */
-.main-container::before,
-.main-container::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(120px);
-    z-index: 0;
-}
+/* ============================== HERO ============================== */
 
-.main-container::before {
-    width: 400px;
-    height: 400px;
-    background: #38bdf8;
-    top: -100px;
-    left: -100px;
-    opacity: 0.15;
-}
-
-.main-container::after {
-    width: 400px;
-    height: 400px;
-    background: #818cf8;
-    bottom: -100px;
-    right: -100px;
-    opacity: 0.15;
-}
-
-/* HERO */
 .hero-section {
-    text-align: center;
-    margin-bottom: 3rem;
-    z-index: 1;
-    animation: fadeUp 0.8s ease;
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.crest-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 0 18px;
+}
+.crest-dash { width: 34px; height: 1px; background: #b8923f; display: inline-block; }
+.crest-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #b8923f;
+  display: inline-block;
+  box-shadow: 0 0 0 3px rgba(184, 146, 63, 0.18);
+}
+
+.eyebrow {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #b8923f;
+  margin: 0 0 14px;
 }
 
 .portal-title {
-    font-size: 3.5rem;
-    color: white;
-    font-weight: 800;
+  font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.8rem, 6vw, 4.6rem);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: #101c33;
+  margin: 0;
+  line-height: 1.05;
 }
 
-.portal-title span {
-    /* 1. Fallback color for very old browsers */
-    color: #38bdf8; 
-
-    /* 2. The Gradient */
-    background: linear-gradient(90deg, #38bdf8, #818cf8);
-
-    /* 3. Clipping logic (Webkit + Standard) */
-    -webkit-background-clip: text;
-    background-clip: text;
-
-    /* 4. Transparent fill to show the background */
-    -webkit-text-fill-color: transparent;
-    color: transparent; 
+.italic-accent {
+  font-style: italic;
+  font-weight: 600;
+  color: #b8923f !important;
+  display: inline-block;
 }
+
+.subtitle-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 22px;
+}
+.rule { width: 46px; height: 1px; background: rgba(28, 26, 23, 0.25); display: inline-block; }
+.rule.small { width: 30px; margin: 0 auto 10px; display: block; background: rgba(184,146,63,0.5); }
 
 .portal-subtitle {
-    color: #94a3b8;
-    letter-spacing: 2px;
-    font-size: 0.9rem;
+  color: #4a4740;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  margin: 0;
+  white-space: nowrap;
 }
 
-/* CARD GRID */
+/* ============================== GRID ============================== */
+
 .card-wrapper {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    width: 100%;
-    max-width: 1100px;
-    z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 34px;
+  width: 100%;
+  max-width: 1080px;
+  position: relative;
+  z-index: 1;
 }
 
-/* CARD */
+/* ============================== CARD — GOLD THEME ============================== */
+
 .glass-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 35px;
-    text-align: center;
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    
-    /* SIMPLE smooth animation (no crazy hover) */
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+  background: linear-gradient(180deg, #fffdf8, #f4e9d2);
+  border-radius: 6px;
+  padding: 46px 32px 38px;
+  text-align: center;
+  color: #101c33;
+  border: 1px solid #d8af5f;
+  cursor: pointer;
+  box-shadow: 0 18px 30px -20px rgba(11,18,32,0.18);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-/* Clean hover (very subtle) */
 .glass-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transform: translateY(-8px);
+  box-shadow: 0 30px 50px -20px rgba(184, 146, 63, 0.45);
+  border-color: #b8923f;
 }
 
-/* ICON */
+.card-numeral {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #9c7a34;
+  letter-spacing: 0.06em;
+}
+
 .icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  color: #b8923f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
 }
+.icon svg { width: 100%; height: 100%; }
+.glass-card:hover .icon { transform: translateY(-4px) scale(1.05); }
 
-/* TEXT */
 .glass-card h2 {
-    font-size: 1.6rem;
-    margin-bottom: 10px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 700;
+  font-size: 1.7rem;
+  letter-spacing: 0.02em;
+  margin: 0 0 8px;
+  color: #101c33;
 }
 
 .glass-card p {
-    color: #cbd5e1;
-    font-size: 0.9rem;
-    margin-bottom: 20px;
+  color: #4a4740;
+  font-size: 0.92rem;
+  margin: 0 0 26px;
+  font-style: italic;
 }
 
-/* BUTTON */
+/* ============================== BUTTON — GOLD FILL ============================== */
+
 .enter-btn {
-    padding: 10px 22px;
-    border: none;
-    border-radius: 10px;
-    background: #38bdf8;
-    color: #020617;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 28px;
+  border: 1px solid #b8923f;
+  border-radius: 3px;
+  background: #b8923f;
+  color: #fffdf8;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 0.86rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
 }
 
 .enter-btn:hover {
-    transform: scale(1.05);
+  background: #a17f34;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -8px rgba(184, 146, 63, 0.6);
 }
 
-/* THEME COLORS */
-.student-theme .enter-btn { background: #3b82f6; }
-.faculty-theme .enter-btn { background: #10b981; }
-.admin-theme .enter-btn   { background: #ec4899; }
+.btn-arrow {
+  width: 15px; height: 15px;
+  transition: transform 0.3s ease;
+}
+.enter-btn:hover .btn-arrow { transform: translateX(4px); }
 
-/* ENTRY ANIMATION */
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* ============================== FOOTER ============================== */
+
+.portal-footer {
+  margin-top: 56px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.portal-footer p {
+  color: #4a4740;
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-    .portal-title {
-        font-size: 2.5rem;
-    }
+/* ============================== RESPONSIVE ============================== */
+
+@media (max-width: 640px) {
+  .portal-title { font-size: 2.4rem; }
+  .subtitle-rule { gap: 10px; }
+  .portal-subtitle { font-size: 0.72rem; letter-spacing: 0.12em; }
 }

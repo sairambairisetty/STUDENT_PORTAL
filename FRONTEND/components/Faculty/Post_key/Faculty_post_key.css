@@ -1,214 +1,259 @@
+/* ============================================================
+   ACADEMIC GOLD / NAVY THEME — Faculty Post Answer Key
+   Matches Basic_interface.css, login pages, dashboards, performance,
+   Join_exam.css, Faculty_main_interface.css.
+   Fonts: Cormorant Garamond (display) + Source Serif 4 (body)
+   Falls back to Georgia/serif if fonts aren't loaded.
+   ============================================================ */
+
+* { box-sizing: border-box; }
+
 .post-key-portal-container {
-  padding: 30px;
-  background-color: #121212;
+  padding: 48px 56px;
+  background-color: #f6f1e6;
+  background-image:
+    radial-gradient(1000px 600px at 100% -10%, rgba(184, 146, 63, 0.10), transparent 60%);
   min-height: calc(100vh - 60px);
-  color: #ffffff;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #1c1a17;
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
 }
 
-/* Action Header area layout */
+/* ============================== HEADER ============================== */
+
 .portal-action-header {
   display: flex;
-  align-items: center;
-  gap: 30px;
-  border-bottom: 1px solid #2d2d2d;
-  padding-bottom: 20px;
-  margin-bottom: 30px;
+  align-items: flex-start;
+  gap: 32px;
+  border-bottom: 1px solid #e3d3ab;
+  padding-bottom: 26px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
 }
 
 .back-dash-btn {
-  background-color: #222;
-  color: #ccc;
-  border: 1px solid #333;
+  background-color: transparent;
+  color: #101c33;
+  border: 1px solid #101c33;
   padding: 10px 20px;
-  border-radius: 6px;
+  border-radius: 3px;
   cursor: pointer;
+  font-family: 'Source Serif 4', Georgia, serif;
   font-weight: 600;
-  transition: all 0.2s;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+.back-dash-btn:hover {
+  background-color: #101c33;
+  color: #fdfbf5;
+  transform: translateY(-1px);
 }
 
-.back-dash-btn:hover {
-  background-color: #333;
-  color: #fff;
-  border-color: #555;
+.header-eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #b8923f;
+  margin: 0 0 8px;
 }
 
 .header-meta h1 {
-  margin: 0 0 5px 0;
-  font-size: 1.8rem;
-  color: #2ecc71;
+  margin: 0 0 8px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.9rem;
+  font-weight: 600;
+  color: #101c33;
 }
 
 .header-meta p {
   margin: 0;
-  color: #888;
-  font-size: 0.95rem;
+  color: #6b6656;
+  font-size: 0.94rem;
+  font-style: italic;
+  max-width: 620px;
 }
 
-/* Table Architecture setup */
+/* ============================== TABLE WRAPPER ============================== */
+
 .table-responsive-wrapper {
-  background: #1a1a1a;
-  border: 1px solid #262626;
-  border-radius: 12px;
+  background: #fffdf8;
+  border: 1px solid #e3d3ab;
+  border-radius: 8px;
   overflow-x: auto;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 20px 40px -28px rgba(16, 28, 51, 0.25);
 }
 
 .faculty-key-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
 }
 
 .faculty-key-table th {
-  background-color: #222222;
-  color: #3498db;
+  background-color: #f4e9d2;
+  color: #9c7a34;
   padding: 16px 20px;
   font-weight: 600;
-  border-bottom: 2px solid #2d2d2d;
+  border-bottom: 1px solid #e3d3ab;
   text-transform: uppercase;
-  font-size: 0.85rem;
-  letter-spacing: 0.5px;
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
 }
 
 .faculty-key-table td {
   padding: 16px 20px;
-  border-bottom: 1px solid #262626;
-  color: #dddddd;
+  border-bottom: 1px solid #ece0c2;
+  color: #1c1a17;
   vertical-align: middle;
 }
 
 .faculty-key-table tbody tr:hover {
-  background-color: #202020;
+  background-color: #fbf5e6;
 }
 
-/* Column elements badges & helpers styling */
+/* ============================== BADGES & HELPERS ============================== */
+
 .exam-id-badge {
-  background: #2c3e50;
-  color: #3498db;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-family: monospace;
-  font-weight: bold;
+  background: #101c33;
+  color: #d8af5f;
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+  font-size: 0.82rem;
 }
 
 .subject-text {
-  color: #ffffff;
-  font-size: 1rem;
+  color: #101c33;
+  font-size: 0.98rem;
 }
 
 .branch-tag {
-  background: #2a2415;
-  color: #e67e22;
-  padding: 4px 8px;
-  border-radius: 4px;
+  background: rgba(184, 146, 63, 0.12);
+  color: #9c7a34;
+  border: 1px solid rgba(184, 146, 63, 0.35);
+  padding: 4px 10px;
+  border-radius: 3px;
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
 }
 
-/* REQUIREMENT: True and False Custom Status Badges */
+/* True / False status */
 .status-badge {
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-weight: bold;
-  font-size: 0.8rem;
-  letter-spacing: 0.5px;
+  padding: 6px 13px;
+  border-radius: 3px;
+  font-weight: 600;
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
   display: inline-block;
 }
-
 .true-badge {
-  background-color: rgba(46, 204, 113, 0.15);
-  color: #2ecc71;
-  border: 1px solid rgba(46, 204, 113, 0.3);
+  background-color: rgba(47, 107, 79, 0.08);
+  color: #2f6b4f;
+  border: 1px solid rgba(47, 107, 79, 0.35);
 }
-
 .false-badge {
-  background-color: rgba(231, 76, 60, 0.15);
-  color: #e74c3c;
-  border: 1px solid rgba(231, 76, 60, 0.3);
+  background-color: rgba(140, 59, 59, 0.08);
+  color: #8c3b3b;
+  border: 1px solid rgba(140, 59, 59, 0.3);
 }
 
-/* Result processing string badges */
+/* Result state text */
 .result-state-tag {
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   font-weight: 600;
   text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
-.result-state-tag.NOT_POSTED {
-  color: #aaa;
-}
-.result-state-tag.KEY_SUBMITTED {
-  color: #3498db;
-}
-.result-state-tag.PUBLISHED {
-  color: #2ecc71;
-}
+.result-state-tag.NOT_POSTED { color: #a39c85; }
+.result-state-tag.KEY_SUBMITTED { color: #9c7a34; }
+.result-state-tag.PUBLISHED { color: #2f6b4f; }
 
-/* Custom Excel file upload slots button logic */
+/* ============================== FILE UPLOAD ============================== */
+
 .hidden-file-input {
   display: none;
 }
 
 .custom-file-label {
-  background: #252525;
-  border: 1px dashed #444;
-  color: #bbb;
-  padding: 8px 14px;
-  border-radius: 6px;
+  background: #fbf5e6;
+  border: 1px dashed #d9cba3;
+  color: #6b6656;
+  padding: 8px 16px;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 0.85rem;
-  transition: all 0.2s;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 0.82rem;
+  transition: all 0.25s ease;
   display: inline-block;
   text-align: center;
-  min-width: 140px;
+  min-width: 150px;
 }
-
 .custom-file-label:hover {
-  border-color: #2ecc71;
-  color: #2ecc71;
-  background: rgba(46, 204, 113, 0.02);
+  border-color: #b8923f;
+  color: #9c7a34;
+  background: rgba(184, 146, 63, 0.06);
 }
 
 .lock-label-text {
-  color: #666;
-  font-size: 0.85rem;
+  color: #a39c85;
+  font-size: 0.82rem;
   font-style: italic;
 }
 
-/* REQUIREMENT: Rocket Submit Post Button Layout */
-.post-submit-icon-btn {
-  background: #2ecc71;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition:
-    background 0.2s,
-    transform 0.1s;
-}
+/* ============================== SUBMIT BUTTON ============================== */
 
+.post-submit-icon-btn {
+  background: #b8923f;
+  color: #fffdf8;
+  border: 1px solid #b8923f;
+  padding: 8px 18px;
+  border-radius: 4px;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
+}
 .post-submit-icon-btn:hover {
-  background: #27ae60;
-  transform: scale(1.02);
+  background: #a17f34;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px -12px rgba(184, 146, 63, 0.55);
+}
+.post-submit-icon-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .success-check-mark {
   font-weight: 600;
-  font-size: 0.9rem;
-  color: #555;
+  font-size: 0.85rem;
+  color: #a39c85;
 }
+
+/* ============================== EMPTY / LOADING STATES ============================== */
 
 .no-exams-box,
 .portal-loader {
   text-align: center;
-  padding: 60px;
-  background: #1a1a1a;
-  border-radius: 12px;
-  border: 1px dashed #333;
-  color: #888;
-  font-size: 1.1rem;
+  padding: 70px 30px;
+  background: #fffdf8;
+  border-radius: 8px;
+  border: 1px dashed #d9cba3;
+  color: #6b6656;
+  font-size: 1.05rem;
+  font-style: italic;
+}
+
+/* ============================== RESPONSIVE ============================== */
+
+@media (max-width: 800px) {
+  .post-key-portal-container { padding: 28px 20px; }
+  .portal-action-header { flex-direction: column; gap: 16px; }
+  .header-meta p { max-width: 100%; }
 }

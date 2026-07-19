@@ -182,3 +182,10 @@
   background: #121212;
   height: 100vh;
 }
+.fullscreen-warning-banner {
+  background: #ffdddd;
+  color: #a10000;
+  text-align: center;
+  padding: 10px;
+  font-weight: 600;
+}

@@ -21,7 +21,7 @@ const Admin_conduct_exam = () => {
       }
     } catch (error) {
       console.error("Error fetching pending exams:", error);
-      alert("పెండింగ్ ఎగ్జామ్స్ లిస్ట్ లోడ్ చేయడంలో లోపం జరిగింది!");
+      alert("we have an error");
     } finally {
       setLoading(false);
     }
@@ -35,14 +35,14 @@ const Admin_conduct_exam = () => {
       );
       if (response.data.status === "success") {
         alert(
-          "🚀 Exam Approved & Launched! సెలెక్ట్ అయిన స్టూడెంట్స్ కి నోటిఫికేషన్ వెళ్ళింది.",
+          "🚀 Exam Approved & Launched! .",
         );
         // టేబుల్ నుండి అప్రూవ్ అయిన ఎగ్జామ్ ని తీసేయడం
         setPendingExams(pendingExams.filter((exam) => exam.exam_id !== examId));
       }
     } catch (error) {
       console.error("Approval Error:", error);
-      alert("ఎగ్జామ్ అప్రూవ్ చేయడం విఫలమైంది!");
+      alert("exam approval is error");
     }
   };
 
@@ -51,14 +51,13 @@ const Admin_conduct_exam = () => {
       <div className="admin-exam-header">
         <h1>Admin Examination Control Portal</h1>
         <p>
-          ఫ్యాకల్టీ సబ్మిట్ చేసిన క్వశ్చన్ పేపర్స్ ని రివ్యూ చేసి, ఇక్కడ అప్రూవ్
-          చేయండి.
+          approve the question paper by sended faculty
         </p>
       </div>
 
       {loading ? (
         <div className="admin-status">
-          పెండింగ్ ఎగ్జామ్స్ రికార్డ్స్ లోడ్ అవుతున్నాయి...
+          pending exam records are loading
         </div>
       ) : pendingExams.length > 0 ? (
         <div className="admin-table-wrapper">
@@ -116,7 +115,7 @@ const Admin_conduct_exam = () => {
         </div>
       ) : (
         <div className="admin-status empty">
-          🎉 ప్రస్తుతం ఎలాంటి పెండింగ్ ఎగ్జామ్ షీట్స్ లేవు!
+          we have no pending exam sheets
         </div>
       )}
     </div>

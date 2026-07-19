@@ -6,8 +6,8 @@ import "./Join_exam.css";
 const Join_exam = () => {
   const navigate = useNavigate();
 
-  // LocalStorage nundi data theesukuntunam
-  const rollNumber = localStorage.getItem("studentRollNumber") || "246M1A1201"; 
+  // LocalStorage నుండి డేటా తీసుకుంటున్నాం
+  const rollNumber = localStorage.getItem("studentRollNumber") || "246M1A1201";
   const branch = localStorage.getItem("studentBranch") || "it";
 
   const [activeExams, setActiveExams] = useState([]);
@@ -18,7 +18,7 @@ const Join_exam = () => {
   const [isExamReady, setIsExamReady] = useState(false);
   const [selectedExam, setSelectedExam] = useState(null);
 
-  // 1. Fetch exams allocated to this specific student
+  // ✅ FIXED: Auto Polling - ప్రతీ 5 సెకన్లకి అడ్మిన్ అప్రూవల్ ని ఆటో-రిఫ్రెష్ చేస్తుంది
   useEffect(() => {
     const fetchStudentExams = async () => {
       try {
@@ -28,12 +28,15 @@ const Join_exam = () => {
             params: { branch: branch.toLowerCase() },
           },
         );
-        if (
-          response.data.status === "success" &&
-          response.data.data.length > 0
-        ) {
+        if (response.data.status === "success") {
           setActiveExams(response.data.data);
-          setSelectedExam(response.data.data[0]); 
+          
+          // ఒకవేళ ఆల్రెడీ ఎగ్జామ్ సెలెక్ట్ అయ్యి ఉంటే దాన్ని డిస్టర్బ్ చేయకుండా, లేకపోతే మొదటిది సెట్ చేస్తాం
+          if (response.data.data.length > 0) {
+            setSelectedExam(prev => prev ? response.data.data.find(e => e.exam_id === prev.exam_id) || response.data.data[0] : response.data.data[0]);
+          } else {
+            setSelectedExam(null);
+          }
         }
       } catch (error) {
         console.error("Error fetching student exams:", error);
@@ -41,44 +44,50 @@ const Join_exam = () => {
         setLoading(false);
       }
     };
-    fetchStudentExams();
+
+    fetchStudentExams(); // ఫస్ట్ టైమ్ రన్ అవుతుంది
+
+    const interval = setInterval(() => {
+      fetchStudentExams(); // ప్రతీ 5 సెకన్లకి బ్యాకెండ్ నుండి ఫ్రెష్ డేటా తెస్తుంది
+    }, 5000);
+
+    return () => clearInterval(interval); // పేజీ మారితే టైమర్ క్లీన్ అవుతుంది
   }, [rollNumber, branch]);
 
-  // 2. Real-Time Countdown Timer Logic (Robust Parsing Fix)
+  // Real-Time Countdown Timer Logic
   useEffect(() => {
-    if (!selectedExam) return;
+    if (!selectedExam) {
+      setTimeLeft("");
+      return;
+    }
 
     const timer = setInterval(() => {
       const now = new Date();
 
-      // Time formatting format string setup (e.g., hh:mm:ss build)
       let timeStr = selectedExam.exam_time;
-      if (timeStr.split(':').length === 2) {
-        timeStr = `${timeStr}:00`; // Seconds missing unte safe ga append chesthunnam
+      if (timeStr.split(":").length === 2) {
+        timeStr = `${timeStr}:00`; 
       }
 
-      const examDateTimeStr = `${selectedExam.exam_date}T${timeStr}`;
+      // ✅ FIXED: 'T' తీసేసి స్పేస్ ఇచ్చాం! దీనివల్ల Indian Standard Time (IST) కరెక్ట్ గా పనిచేస్తుంది
+      const examDateTimeStr = `${selectedExam.exam_date} ${timeStr}`;
       const examStartTime = new Date(examDateTimeStr);
 
-      const difference = examStartTime - now; 
+      const difference = examStartTime - now;
 
       if (difference <= 0) {
-        // Exam Start time cross ayindi or running lo undhi
         const examDurationMs = selectedExam.exam_duration * 60 * 1000;
         const examEndTime = new Date(examStartTime.getTime() + examDurationMs);
-        
+
         if (now < examEndTime) {
-          // Exam live running inside slot time
           setTimeLeft("EXAM IS LIVE!");
           setIsExamReady(true);
         } else {
-          // Exam duration poorthi aipothe
           setTimeLeft("Exam Expired");
           setIsExamReady(false);
           clearInterval(timer);
         }
       } else {
-        // Countdown remaining hours, minutes, seconds calculation
         const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
         const minutes = Math.floor((difference / 1000 / 60) % 60);
         const seconds = Math.floor((difference / 1000) % 60);
@@ -100,7 +109,6 @@ const Join_exam = () => {
 
   return (
     <div className="join-exam-container">
-      {/* Header Area */}
       <header className="join-header">
         <button
           className="back-btn"
@@ -115,9 +123,7 @@ const Join_exam = () => {
       </header>
 
       {loading ? (
-        <div className="join-status">
-          షెడ్యూల్ అయిన ఎగ్జామ్స్ వెతుకుతున్నాము...
-        </div>
+        <div className="join-status">Searching for scheduled exams...</div>
       ) : selectedExam ? (
         <div className="exam-waiting-room">
           <div className="motivation-card">
@@ -126,10 +132,6 @@ const Join_exam = () => {
                 {selectedExam.branch.toUpperCase()} - {selectedExam.subject}
               </div>
               <h1>All The Best, {rollNumber}!</h1>
-              <p>
-                రైల్వే ఎగ్జామ్ రూల్స్ ప్రకారం కౌంట్‌డౌన్ ముగియగానే పేపర్
-                ఆటోమేటిక్‌గా ఓపెన్ అవుతుంది.
-              </p>
 
               <div className="exam-meta-details">
                 <div className="meta-item">
@@ -139,12 +141,10 @@ const Join_exam = () => {
                   ⏰ <strong>Time:</strong> {selectedExam.exam_time}
                 </div>
                 <div className="meta-item">
-                  ⏳ <strong>Duration:</strong> {selectedExam.exam_duration}{" "}
-                  Mins
+                  ⏳ <strong>Duration:</strong> {selectedExam.exam_duration} Mins
                 </div>
               </div>
 
-              {/* Dynamic Locking Button Override for Testing */}
               <button
                 className={`start-portal-btn ${isExamReady ? "ready" : "locked"}`}
                 disabled={!isExamReady}
@@ -159,7 +159,7 @@ const Join_exam = () => {
         </div>
       ) : (
         <div className="join-status no-exams">
-          🎉 నీ బ్రాంచ్ కి ప్రస్తుతం ఎలాంటి యాక్టివ్ ఎగ్జామ్స్ షెడ్యూల్ కాలేదు!
+          We have no exams scheduled in this particular Branch at the moment.
         </div>
       )}
     </div>

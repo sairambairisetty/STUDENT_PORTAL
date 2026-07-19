@@ -61,8 +61,8 @@ const Admin_main_interface = () => {
 
             <main className="admin-content-pane">
                 <header className="admin-welcome-banner">
-                    <h1>System Command Dashboard</h1>
-                    <p>Welcome back! Select a module subsystem node below to perform active campus management operations.</p>
+                    <h1>ADMIN</h1>
+                    <p>Welcome back! </p>
                 </header>
 
                 <section className="admin-modules-layout-grid">
