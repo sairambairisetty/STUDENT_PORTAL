@@ -45,16 +45,20 @@ UPLOAD_DIR = "uploaded_exams"
 KEYS_DIR = "uploaded_keys" # Folder dedicated to saving answer key sheets
 
 # Iterate and safely generate target host folders if missing on initial launch
+# when folders are not availabe the usign makedirs simplily create a folder for storing papers or pdfs
+# this will be store in the server
 for folder in [UPLOAD_DIR, KEYS_DIR]:
     if not os.path.exists(folder):
         os.makedirs(folder)
 
 # Mount Static Routes
 # Serves static assets directly via endpoints so PDFs and Excel sheets can be downloaded/viewed via local URLs
+#this is a mount feature ,when the any person upload any file that will stored into the server ,then that will retrive with app.mount also url wihtout using any particular code
 app.mount("/uploaded_exams", StaticFiles(directory=UPLOAD_DIR), name="uploaded_exams")
 app.mount("/uploaded_keys", StaticFiles(directory=KEYS_DIR), name="uploaded_keys")
 
 # Pydantic Models for strict incoming JSON validation
+# these are the data validation ,when the data came from frontend react ,it will be check with the basemodel is valid or is this correct or not
 class LoginRequest(BaseModel):
     roll_number: str
     password: str
@@ -83,8 +87,8 @@ async def register_bulk_students(branch: str = Form(...), file: UploadFile = Fil
     table_name = branch.strip().lower() # Resolves specific table target based on student branch name
     try:
         # Read incoming binary data straight into memory block
-        contents = await file.read()
-        df = pd.read_excel(io.BytesIO(contents))
+        contents = await file.read()#any file of data must read by server with only binary 
+        df = pd.read_excel(io.BytesIO(contents))#here again that binary code convert into an tablae formats 
         
         # Open interface connection to local student database instance
         conn = psycopg2.connect(**DB_CONFIG)
@@ -154,6 +158,7 @@ async def faculty_submit_exam(
         cur = conn.cursor()
 
         # Insert metadata descriptor parameters tracking overall examination profiles
+        #here the database will return the one key which is named as exam_id
         insert_exam_query = """
             INSERT INTO exam_sheets (faculty_id, branch, subject, year, exam_date, exam_time, exam_duration, total_questions, pdf_path)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING exam_id;
@@ -165,7 +170,8 @@ async def faculty_submit_exam(
         
         # Fetch the uniquely generated identity structural key returned by engine
         exam_id = cur.fetchone()[0]
-
+        
+        #then that exam_id return key will assigned to the students who are eligible for exam
         # Bind individual student reference links explicitly against current assignment configuration profile
         insert_students_query = """
             INSERT INTO exam_eligible_students (exam_id, roll_number)
@@ -514,7 +520,7 @@ async def student_get_performance(roll_number: str):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-# --- 4.4 SEE DETAILED RESULT COMPARISON (RECTIFIED FOR EXCEL HEADERS AND BLANK ROWS) ---
+# --- 4.4 SEE DETAILED RESULT COMPARISON (FIXED: total marks now always shows) ---
 @app.get("/student/see-result/{exam_id}/{roll_number}")
 async def student_see_detailed_result(exam_id: int, roll_number: str):
     """
@@ -562,33 +568,41 @@ async def student_see_detailed_result(exam_id: int, roll_number: str):
                         except ValueError:
                             continue
                 
-        # 3. Pull aggregate evaluation figures from performance database logs
-        cur.execute("SELECT total_marks, correct_answers, wrong_answers FROM student_results WHERE exam_id = %s AND UPPER(roll_number) = %s", (exam_id, roll_number.upper()))
-        res_sum = cur.fetchone()
-        
-        if res_sum:
-            summary = {
-                "total_marks": res_sum[0], 
-                "correct": res_sum[1], 
-                "wrong": res_sum[2]
-            }
-        else:
-            summary = {"total_marks": 0, "correct": 0, "wrong": 0}
-        
-        # 4. Synthesize structural arrays packing side-by-side response elements cleanly
+        # 3. Synthesize structural arrays packing side-by-side response elements cleanly
+        # FIX: correct_cnt / wrong_cnt are now computed HERE, in the same loop that builds
+        # the tick/cross comparison, instead of only trusting the separate student_results
+        # table. This guarantees the marks total always matches what the ticks show.
         comparison = []
+        correct_cnt = 0
+        wrong_cnt = 0
         all_q_keys = set(list(student_ans.keys()) + list(official_key.keys()))
         all_q_nos = sorted(list(all_q_keys), key=lambda x: int(x) if str(x).isdigit() else 999)
         
         for q in all_q_nos:
             s_opt = student_ans.get(str(q), "-")
             f_opt = official_key.get(str(q), "-")
+            is_match = str(s_opt).strip().upper() == str(f_opt).strip().upper() if s_opt != "-" and f_opt != "-" else False
+
+            # Only count questions the student actually answered AND that exist in the key
+            if s_opt != "-" and f_opt != "-":
+                if is_match:
+                    correct_cnt += 1
+                else:
+                    wrong_cnt += 1
+
             comparison.append({
                 "question_no": q,
                 "student_option": s_opt,
                 "faculty_option": f_opt,
-                "is_match": str(s_opt).strip().upper() == str(f_opt).strip().upper() if s_opt != "-" and f_opt != "-" else False
+                "is_match": is_match
             })
+
+        # FIX (v2): the student_results table can hold a stale/incorrect "0" row from an
+        # earlier evaluation run, and 0 is not None, so the previous fallback check
+        # (`is not None`) was still picking the stale stored 0 instead of the live count.
+        # The comparison ticks above are always the source of truth, so just use the
+        # live-calculated numbers directly here — no dependency on student_results at all.
+        summary = {"total_marks": correct_cnt * 1, "correct": correct_cnt, "wrong": wrong_cnt}
             
         cur.close()
         conn.close()
