@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Student_exam_portal.css";
@@ -14,10 +14,26 @@ const Student_exam_portal = () => {
   const [answers, setAnswers] = useState({});
   const [durationLeft, setDurationLeft] = useState(0);
 
-  // ---------------- NEW: Fullscreen + Keyboard Lock state ----------------
+  // Security, Fullscreen & Grace Timer States
+  const [warnings, setWarnings] = useState(0);
   const [fsWarning, setFsWarning] = useState("");
+  const [isOutsideFs, setIsOutsideFs] = useState(false);
+  const [graceTimeLeft, setGraceTimeLeft] = useState(10);
 
-  // NEW: Force the browser into fullscreen mode
+  // References to keep event listeners updated with the freshest states
+  const answersRef = useRef(answers);
+  const warningsRef = useRef(warnings);
+  const graceTimerRef = useRef(null);
+
+  useEffect(() => {
+    answersRef.current = answers;
+  }, [answers]);
+
+  useEffect(() => {
+    warningsRef.current = warnings;
+  }, [warnings]);
+
+  // Force the browser into fullscreen mode
   const enterFullscreen = useCallback(() => {
     const el = document.documentElement;
     if (el.requestFullscreen) {
@@ -27,23 +43,112 @@ const Student_exam_portal = () => {
     } else if (el.msRequestFullscreen) {
       el.msRequestFullscreen();
     }
+    setIsOutsideFs(false);
+    setFsWarning("");
+    if (graceTimerRef.current) {
+      clearInterval(graceTimerRef.current);
+    }
   }, []);
 
-  // NEW: Enter fullscreen + block keyboard as soon as the exam portal mounts
+  // 1. Core Submission Handler (Accessible by both manual click and auto-trigger)
+  const handleFinalSubmit = useCallback(
+    async (isAuto = false) => {
+      // Clear any running grace period timers immediately
+      if (graceTimerRef.current) {
+        clearInterval(graceTimerRef.current);
+      }
+
+      if (!isAuto) {
+        const confirmSubmit = window.confirm(
+          "Are you sure you want to lock and submit your answers?",
+        );
+        if (!confirmSubmit) return;
+      }
+
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/student/submit-answers",
+          {
+            roll_number: rollNumber,
+            exam_id: parseInt(examId),
+            answers: answersRef.current,
+          },
+        );
+
+        if (response.data.status === "success") {
+          alert(
+            "🎉 Answer sheet has been successfully forwarded to your faculty.",
+          );
+          navigate("/student-dashboard");
+        }
+      } catch (error) {
+        console.error("Submission error:", error);
+        alert(
+          "Error submitting your answers. Please contact the administrator.",
+        );
+      }
+    },
+    [examId, rollNumber, navigate],
+  );
+
+  // 2. Fullscreen Monitoring & Grace Period Timer Logic
   useEffect(() => {
     enterFullscreen();
 
     const handleFsChange = () => {
       const fsActive = !!document.fullscreenElement;
+
       if (!fsActive) {
+        // Increment warning count immediately upon exit
+        const nextCount = warningsRef.current + 1;
+        setWarnings(nextCount);
+
+        if (nextCount >= 3) {
+          setFsWarning(
+            "🚨 Malpractice detected! Exited fullscreen 3 times. Submitting exam...",
+          );
+          alert(
+            "🚨 Malpractice Lockout! You have breached the fullscreen rule 3 times. Your exam is ending immediately.",
+          );
+          handleFinalSubmit(true);
+          return;
+        }
+
+        // Trigger the 10-second grace window setup
+        setIsOutsideFs(true);
+        setGraceTimeLeft(10);
         setFsWarning(
-          "you are out side of full screen . please enter to full screen mode",
+          `⚠️ Left fullscreen! Violation Count: ${nextCount} / 3. Return within 10 seconds!`,
         );
-        setTimeout(() => {
-          enterFullscreen();
-        }, 500);
+
+        // Start a precise 1-second interval countdown ticker
+        let currentGrace = 10;
+        if (graceTimerRef.current) clearInterval(graceTimerRef.current);
+
+        graceTimerRef.current = setInterval(() => {
+          currentGrace -= 1;
+          setGraceTimeLeft(currentGrace);
+
+          if (currentGrace <= 0) {
+            clearInterval(graceTimerRef.current);
+            setFsWarning("🚨 Time ran out! Submitting exam automatically...");
+            alert(
+              "🚨 Time limit exceeded! You did not return to fullscreen within 10 seconds. Your exam is closing now.",
+            );
+            handleFinalSubmit(true);
+          } else {
+            setFsWarning(
+              `⚠️ Left fullscreen! Violation Count: ${nextCount} / 3. Return within ${currentGrace} seconds!`,
+            );
+          }
+        }, 1000);
       } else {
+        // Clean up locks if the user manually or via button enters fullscreen successfully
+        setIsOutsideFs(false);
         setFsWarning("");
+        if (graceTimerRef.current) {
+          clearInterval(graceTimerRef.current);
+        }
       }
     };
 
@@ -51,7 +156,7 @@ const Student_exam_portal = () => {
     document.addEventListener("webkitfullscreenchange", handleFsChange);
     document.addEventListener("msfullscreenchange", handleFsChange);
 
-    // Block every keyboard key — only mouse should work during the exam
+    // Block all keyboard inputs
     const blockKeyboard = (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -61,7 +166,7 @@ const Student_exam_portal = () => {
     window.addEventListener("keyup", blockKeyboard, true);
     window.addEventListener("keypress", blockKeyboard, true);
 
-    // Block right-click menu and copy/cut/paste
+    // Block right-click and clipboard manipulations
     const blockContextMenu = (e) => e.preventDefault();
     document.addEventListener("contextmenu", blockContextMenu);
 
@@ -70,14 +175,14 @@ const Student_exam_portal = () => {
     document.addEventListener("cut", blockClipboard);
     document.addEventListener("paste", blockClipboard);
 
-    // Warn on accidental tab close / refresh while exam is in progress
+    // Trap page refreshes
     const beforeUnloadHandler = (e) => {
       e.preventDefault();
       e.returnValue = "";
     };
     window.addEventListener("beforeunload", beforeUnloadHandler);
 
-    // Cleanup everything when the student leaves this page (after submit)
+    // Cleanups on component unmount
     return () => {
       document.removeEventListener("fullscreenchange", handleFsChange);
       document.removeEventListener("webkitfullscreenchange", handleFsChange);
@@ -90,15 +195,15 @@ const Student_exam_portal = () => {
       document.removeEventListener("cut", blockClipboard);
       document.removeEventListener("paste", blockClipboard);
       window.removeEventListener("beforeunload", beforeUnloadHandler);
+      if (graceTimerRef.current) clearInterval(graceTimerRef.current);
 
       if (document.fullscreenElement && document.exitFullscreen) {
         document.exitFullscreen().catch(() => {});
       }
     };
-  }, [enterFullscreen]);
-  // ---------------- END NEW ----------------
+  }, [enterFullscreen, handleFinalSubmit]);
 
-  // 1. Fetch PDF Path, Duration & Total Questions Count from Backend
+  // 3. Fetch PDF Meta structural layout metrics from backend
   useEffect(() => {
     const fetchPortalData = async () => {
       try {
@@ -111,8 +216,8 @@ const Student_exam_portal = () => {
           setDurationLeft(exam.exam_duration * 60);
         }
       } catch (error) {
-        console.error("Portal Data Error:", error);
-        alert("error in exam loading");
+        console.error("Portal Data Fetch Error:", error);
+        alert("Error loading exam details. Moving back to dashboard.");
         navigate("/student-dashboard");
       } finally {
         setLoading(false);
@@ -121,11 +226,13 @@ const Student_exam_portal = () => {
     fetchPortalData();
   }, [examId, navigate]);
 
-  // 2. Countdown Timer & Auto-Submit when Time Over
+  // 4. Dynamic countdown duration tick down engine
   useEffect(() => {
     if (durationLeft <= 0 && !loading && examDetails) {
       if (durationLeft === 0) {
-        alert("⏳ Time Over! answers are submitting automatically.");
+        alert(
+          "⏳ Time Over! Your answers are being locked and submitted automatically.",
+        );
         handleFinalSubmit(true);
       }
       return;
@@ -136,7 +243,7 @@ const Student_exam_portal = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [durationLeft, loading, examDetails]);
+  }, [durationLeft, loading, examDetails, handleFinalSubmit]);
 
   const formatTime = (seconds) => {
     const h = Math.floor(seconds / 3600)
@@ -153,42 +260,25 @@ const Student_exam_portal = () => {
     setAnswers({ ...answers, [qNum]: option });
   };
 
-  // 3. Submit Answers Sheet to DB
-  const handleFinalSubmit = async (isAuto = false) => {
-    if (!isAuto) {
-      const confirmSubmit = window.confirm("are u sure to lock the answers");
-      if (!confirmSubmit) return;
-    }
-
-    try {
-      const response = await axios.post(
-        "http://localhost:8000/student/submit-answers",
-        {
-          roll_number: rollNumber,
-          exam_id: parseInt(examId),
-          answers: answers,
-        },
-      );
-
-      if (response.data.status === "success") {
-        alert(
-          "🎉 answers sheets will be forwarded sucessfully to your faculty",
-        );
-        navigate("/student-dashboard");
-      }
-    } catch (error) {
-      print("Submission error:", error);
-      alert("error in submiting your answers");
-    }
-  };
-
-  if (loading) return <div className="portal-loading">please wait</div>;
+  if (loading)
+    return (
+      <div className="portal-loading">
+        Please wait, setting up secure desktop framework...
+      </div>
+    );
 
   return (
     <div className="exam-portal-layout">
-      {/* NEW: Fullscreen exit warning banner */}
+      {/* Dynamic malpractice safety notification alert banner + Return Button */}
       {fsWarning && (
-        <div className="fullscreen-warning-banner">{fsWarning}</div>
+        <div className="fullscreen-warning-banner">
+          <span>{fsWarning}</span>
+          {isOutsideFs && (
+            <button className="re-enter-fs-btn" onClick={enterFullscreen}>
+              🔄 Re-enter Fullscreen ({graceTimeLeft}s)
+            </button>
+          )}
+        </div>
       )}
 
       <header className="portal-top-bar">
@@ -205,30 +295,34 @@ const Student_exam_portal = () => {
       </header>
 
       <div className="split-screen-container">
-        {/* Left Side Panel - PDF View */}
+        {/* Left Side Panel - PDF Render Canvas */}
         <div className="left-pdf-panel">
           {examDetails?.pdf_path ? (
             <iframe
               src={`http://localhost:8000/${examDetails.pdf_path}#toolbar=0`}
               width="100%"
               height="100%"
-              title="Question Paper"
+              title="Question Paper Workspace"
               className="pdf-iframe"
             />
           ) : (
-            <div className="no-pdf-msg">question paper not loaded</div>
+            <div className="no-pdf-msg">
+              Question paper asset failed to load properly.
+            </div>
           )}
         </div>
 
-        {/* Right Side Panel - OMR Layout */}
+        {/* Right Side Panel - OMR Layout Engine */}
         <div className="right-omr-panel">
           <div className="omr-header">
             <h3>Digital OMR Answer Sheet</h3>
-            <p>select correct option to see the left side pdf</p>
+            <p>
+              Select corresponding values relative to the adjacent assessment
+              sheet
+            </p>
           </div>
 
           <div className="omr-scroll-area">
-            {/* FIXED: ఇక్కడ 30 కాకుండా డేటాబేస్ నుండి వచ్చే కౌంట్ బట్టి బబుల్స్ జెనరేట్ అవుతాయి */}
             {Array.from(
               { length: examDetails?.total_questions || 30 },
               (_, i) => i + 1,
@@ -256,7 +350,7 @@ const Student_exam_portal = () => {
             ))}
           </div>
 
-          {/* FIXED: ఈ సబ్మిట్ యాక్షన్ బాక్స్ ఇప్పుడు స్క్రోల్ అవ్వకుండా స్థిరంగా కిందనే ఉంటుంది */}
+          {/* Secure submission lock deck */}
           <div className="omr-footer-action">
             <button
               className="lock-exam-btn"
