@@ -17,3 +17,5 @@ BACKEND/__pycache__/
 .DS_Store
 .vscode/
 *.log
+BACKEND/uploaded_exams/
+BACKEND/uploaded_keys/
