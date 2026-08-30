@@ -8,6 +8,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles  
 from pydantic import BaseModel
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Load environment variables from .env file (must be in the same folder as this script)
+load_dotenv()
 
 # Initialize the App FIRST
 app = FastAPI()
@@ -22,23 +26,32 @@ app.add_middleware(
 )
 
 # Database Configurations
+# Credentials now come from environment variables (.env) instead of being hardcoded.
 # Primary database containing branch-wise tables and student specific details
 DB_CONFIG = {
-    "dbname": "STUDENTS",
-    "user": "postgres",
-    "password": "Sairam1205@", 
-    "host": "localhost",
-    "port": "5432"
+    "dbname": os.getenv("STUDENTS_DB_NAME", "STUDENTS"),
+    "user": os.getenv("DB_USER", "postgres"),
+    "password": os.getenv("DB_PASSWORD"),
+    "host": os.getenv("DB_HOST", "localhost"),
+    "port": os.getenv("DB_PORT", "5432"),
 }
 
 # Administrative database managing scheduling, answer keys, exam configurations, and results
 ADMIN_DB_CONFIG = {
-    "dbname": "ADMIN", 
-    "user": "postgres",
-    "password": "Sairam1205@",
-    "host": "localhost",
-    "port": "5432"
+    "dbname": os.getenv("ADMIN_DB_NAME", "ADMIN"),
+    "user": os.getenv("DB_USER", "postgres"),
+    "password": os.getenv("DB_PASSWORD"),
+    "host": os.getenv("DB_HOST", "localhost"),
+    "port": os.getenv("DB_PORT", "5432"),
 }
+
+# Fail fast with a clear message if no .env / password was found, instead of a confusing
+# psycopg2 connection error later.
+if not DB_CONFIG["password"]:
+    raise RuntimeError(
+        "DB_PASSWORD not set. Create a .env file in the BACKEND folder "
+        "(see .env.example) with your local PostgreSQL password."
+    )
 
 # Upload Directories Setup
 UPLOAD_DIR = "uploaded_exams"
