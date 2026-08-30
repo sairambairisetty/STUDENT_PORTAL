@@ -1,0 +1,225 @@
+/* ============================================================
+   ACADEMIC GOLD / NAVY THEME — Conduct an Exam
+   Matches Basic_interface.css, login pages, dashboards, performance,
+   Join_exam.css, Faculty_main_interface.css, Faculty_post_key.css.
+   Fonts: Cormorant Garamond (display) + Source Serif 4 (body)
+   Falls back to Georgia/serif if fonts aren't loaded.
+   ============================================================ */
+
+* { box-sizing: border-box; }
+
+.conduct-exam-container {
+  padding: 48px 32px;
+  max-width: 1300px;
+  margin: 0 auto;
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  color: #1c1a17;
+  background-color: #f6f1e6;
+}
+
+.conduct-exam-header {
+  margin-bottom: 36px;
+  border-bottom: 1px solid #e3d3ab;
+  padding-bottom: 22px;
+}
+
+.header-eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #b8923f;
+  margin: 0 0 10px;
+}
+
+.conduct-exam-header h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #101c33;
+  margin: 0 0 8px;
+}
+
+.conduct-exam-header p {
+  color: #6b6656;
+  font-style: italic;
+  margin: 0;
+}
+
+.exam-form-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 30px;
+}
+
+.form-left-panel,
+.form-right-panel {
+  background: #fffdf8;
+  padding: 28px;
+  border-radius: 8px;
+  box-shadow: 0 20px 40px -28px rgba(16, 28, 51, 0.25);
+  border: 1px solid #e3d3ab;
+}
+
+.form-left-panel h3,
+.form-right-panel h3 {
+  margin-top: 0;
+  margin-bottom: 22px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #101c33;
+  border-left: 3px solid #b8923f;
+  padding-left: 12px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #6b6656;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.input-group input[type="text"],
+.input-group input[type="number"],
+.input-group select,
+.input-group input[type="date"],
+.input-group input[type="time"] {
+  padding: 12px 14px;
+  border: 1px solid #d9cba3;
+  border-radius: 4px;
+  font-size: 0.98rem;
+  font-family: 'Source Serif 4', Georgia, serif;
+  background-color: #fdfbf5;
+  color: #1c1a17;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  border-color: #b8923f;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(184, 146, 63, 0.15);
+}
+
+/* Date, Time, Duration Grid Arrangement */
+.datetime-duration-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 5px;
+}
+
+.file-upload-box {
+  background: #fbf5e6;
+  padding: 16px;
+  border-radius: 5px;
+  border: 1px dashed #d9cba3;
+}
+
+.submit-exam-btn {
+  width: 100%;
+  padding: 14px;
+  background: #b8923f;
+  color: #fffdf8;
+  border: 1px solid #b8923f;
+  border-radius: 4px;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+}
+.submit-exam-btn:hover {
+  background: #a17f34;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -12px rgba(184, 146, 63, 0.5);
+}
+
+.status-msg {
+  text-align: center;
+  padding: 44px 20px;
+  color: #6b6656;
+  font-style: italic;
+}
+.status-msg.empty {
+  background: #fbf5e6;
+  border: 1px dashed #d9cba3;
+  border-radius: 5px;
+}
+
+.select-all-box {
+  background: #f4e9d2;
+  padding: 13px 16px;
+  border-radius: 5px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #e3d3ab;
+}
+.select-all-box label { color: #101c33; }
+
+.select-all-box input,
+.student-table input {
+  width: 17px;
+  height: 17px;
+  cursor: pointer;
+  accent-color: #b8923f;
+}
+
+.student-scroll-area {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #e3d3ab;
+  border-radius: 5px;
+}
+
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.student-table th,
+.student-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #ece0c2;
+  text-align: left;
+  font-size: 0.92rem;
+}
+
+.student-table th {
+  background: #f4e9d2;
+  color: #9c7a34;
+  position: sticky;
+  top: 0;
+  text-transform: uppercase;
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  z-index: 1;
+}
+
+.student-table tr:hover {
+  background-color: #fbf5e6;
+}
+
+/* Scrollbar to match */
+.student-scroll-area::-webkit-scrollbar { width: 8px; }
+.student-scroll-area::-webkit-scrollbar-track { background: #f6f1e6; }
+.student-scroll-area::-webkit-scrollbar-thumb { background: #d8af5f; border-radius: 4px; }
+.student-scroll-area::-webkit-scrollbar-thumb:hover { background: #b8923f; }
+
+@media (max-width: 900px) {
+  .exam-form-layout { grid-template-columns: 1fr; }
+  .datetime-duration-grid { grid-template-columns: 1fr 1fr; }
+  .full-width-mobile { grid-column: span 2; }
+}

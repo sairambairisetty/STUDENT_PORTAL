@@ -1,0 +1,228 @@
+/* ============================================================
+   FONTS — add this to your index.html <head>, above your CSS link:
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500;1,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+
+   If the fonts don't load for any reason, everything below falls back
+   to Georgia/serif automatically — layout and color will not break.
+   ============================================================ */
+
+* { box-sizing: border-box; }
+
+.portal-root {
+  min-height: 100vh;
+  width: 100%;
+  background: #f6f1e6;
+  background-image:
+    radial-gradient(1200px 600px at 15% -10%, rgba(184, 146, 63, 0.12), transparent 60%),
+    radial-gradient(1000px 700px at 110% 110%, rgba(184, 146, 63, 0.08), transparent 60%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  color: #1c1a17;
+  padding: 64px 20px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ============================== HERO ============================== */
+
+.hero-section {
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.crest-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 0 18px;
+}
+.crest-dash { width: 34px; height: 1px; background: #b8923f; display: inline-block; }
+.crest-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #b8923f;
+  display: inline-block;
+  box-shadow: 0 0 0 3px rgba(184, 146, 63, 0.18);
+}
+
+.eyebrow {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #b8923f;
+  margin: 0 0 14px;
+}
+
+.portal-title {
+  font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.8rem, 6vw, 4.6rem);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: #101c33;
+  margin: 0;
+  line-height: 1.05;
+}
+
+.italic-accent {
+  font-style: italic;
+  font-weight: 600;
+  color: #b8923f !important;
+  display: inline-block;
+}
+
+.subtitle-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 22px;
+}
+.rule { width: 46px; height: 1px; background: rgba(28, 26, 23, 0.25); display: inline-block; }
+.rule.small { width: 30px; margin: 0 auto 10px; display: block; background: rgba(184,146,63,0.5); }
+
+.portal-subtitle {
+  color: #4a4740;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* ============================== GRID ============================== */
+
+.card-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 34px;
+  width: 100%;
+  max-width: 1080px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================== CARD — GOLD THEME ============================== */
+
+.glass-card {
+  position: relative;
+  background: linear-gradient(180deg, #fffdf8, #f4e9d2);
+  border-radius: 6px;
+  padding: 46px 32px 38px;
+  text-align: center;
+  color: #101c33;
+  border: 1px solid #d8af5f;
+  cursor: pointer;
+  box-shadow: 0 18px 30px -20px rgba(11,18,32,0.18);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 50px -20px rgba(184, 146, 63, 0.45);
+  border-color: #b8923f;
+}
+
+.card-numeral {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #9c7a34;
+  letter-spacing: 0.06em;
+}
+
+.icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  color: #b8923f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+.icon svg { width: 100%; height: 100%; }
+.glass-card:hover .icon { transform: translateY(-4px) scale(1.05); }
+
+.glass-card h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 700;
+  font-size: 1.7rem;
+  letter-spacing: 0.02em;
+  margin: 0 0 8px;
+  color: #101c33;
+}
+
+.glass-card p {
+  color: #4a4740;
+  font-size: 0.92rem;
+  margin: 0 0 26px;
+  font-style: italic;
+}
+
+/* ============================== BUTTON — GOLD FILL ============================== */
+
+.enter-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 28px;
+  border: 1px solid #b8923f;
+  border-radius: 3px;
+  background: #b8923f;
+  color: #fffdf8;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 0.86rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.enter-btn:hover {
+  background: #a17f34;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -8px rgba(184, 146, 63, 0.6);
+}
+
+.btn-arrow {
+  width: 15px; height: 15px;
+  transition: transform 0.3s ease;
+}
+.enter-btn:hover .btn-arrow { transform: translateX(4px); }
+
+/* ============================== FOOTER ============================== */
+
+.portal-footer {
+  margin-top: 56px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.portal-footer p {
+  color: #4a4740;
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* ============================== RESPONSIVE ============================== */
+
+@media (max-width: 640px) {
+  .portal-title { font-size: 2.4rem; }
+  .subtitle-rule { gap: 10px; }
+  .portal-subtitle { font-size: 0.72rem; letter-spacing: 0.12em; }
+}

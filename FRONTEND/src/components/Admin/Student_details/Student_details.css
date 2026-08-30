@@ -1,0 +1,136 @@
+.details-page-container {
+  padding: 40px;
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- Search Card Styling --- */
+.selection-card {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 30px;
+}
+
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-form select {
+  padding: 12px;
+  min-width: 200px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.search-btn, .print-btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.search-btn { background-color: #3498db; color: white; }
+.print-btn { background-color: #2ecc71; color: white; }
+.search-btn:hover, .print-btn:hover { opacity: 0.9; }
+
+/* --- Table Wrapper (Fixed Scrolling) --- */
+.table-wrapper {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  overflow-x: auto; /* CRITICAL: This allows scrolling if columns are too many */
+  width: 100%;
+}
+
+.details-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px; /* Ensures the table doesn't squish too much */
+}
+
+.details-table th {
+  background-color: #3498db;
+  color: white;
+  padding: 15px;
+  text-align: left;
+  white-space: nowrap; /* Keeps headers on one line */
+}
+
+.details-table td {
+  padding: 15px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #333;
+  white-space: nowrap; /* Prevents long text from wrapping and breaking rows */
+}
+
+.details-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+.print-only-header {
+  display: none;
+}
+
+/* ==========================================
+   PRINT STYLES
+   ========================================== */
+@media print {
+  /* Force landscape mode so all 8 columns fit */
+  @page {
+    size: landscape;
+    margin: 1cm;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .details-page-container {
+    background: white;
+    padding: 0;
+    margin: 0;
+  }
+
+  .table-wrapper {
+    box-shadow: none;
+    overflow: visible; /* Disable scrollbars on paper */
+  }
+
+  .details-table {
+    min-width: 100%; /* Use full paper width */
+    font-size: 10pt; /* Slightly smaller text for printing */
+  }
+
+  .details-table th, .details-table td {
+    border: 1px solid #ddd; /* Visible lines on paper */
+    padding: 8px;
+  }
+
+  .print-only-header {
+    display: block;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .details-table th {
+    background-color: #3498db !important;
+    color: white !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
